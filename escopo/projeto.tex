@@ -1,0 +1,131 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\definecolor{tfblue}{RGB}{20,40,70}
+\definecolor{tfgold}{RGB}{200,150,40}
+
+\titleformat{\section}{\normalfont\Large\bfseries\color{tfblue}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{tfblue}}{\thesubsection}{0.6em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{TrackFleet --- Escopo do Projeto}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\LARGE\bfseries\color{tfblue} DOCUMENTO DE ESCOPO DO PROJETO}\\[2pt]
+{\Large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+{\small\itshape Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Escopo}\\[2pt]
+{\small Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 20/08}
+\end{center}
+
+\vspace{2mm}
+\noindent\textbf{\color{tfgold}\large Escopo do Projeto}
+
+\vspace{1mm}
+\noindent\textit{O ``como'': todo o trabalho necessário --- e apenas o necessário --- para entregar o Escopo do Produto descrito no documento correspondente. É o componente mais importante da linha de base, pois nele reside o valor esperado do projeto.}
+
+\section{Descrição do Trabalho do Projeto}
+\begin{itemize}[itemsep=2pt]
+  \item Levantar requisitos com a transportadora parceira e mapear a integração com a API do provedor de rastreamento piloto.
+  \item Projetar a arquitetura da solução (backend, frontend, banco de dados, integração externa).
+  \item Desenvolver o backend: API própria, integração com o rastreador e regras de geração de alertas de manutenção.
+  \item Desenvolver o frontend: mapa, painel de indicadores, cadastros e relatórios.
+  \item Implementar autenticação, perfis de acesso e as medidas de conformidade com a LGPD.
+  \item Testar a solução (testes automatizados e testes com dados reais/simulados do rastreador).
+  \item Homologar a plataforma com a transportadora piloto.
+  \item Treinar os usuários piloto (gestor e motoristas) e coletar feedback.
+  \item Documentar o projeto e encerrar a primeira fase, com registro de lições aprendidas.
+\end{itemize}
+
+\section{Estrutura Analítica do Projeto (EAP)}
+A EAP decompõe o trabalho total em pacotes menores, atribuíveis e mensuráveis, tornando o acordo sobre o escopo visível a todos os envolvidos.
+
+\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=3pt]
+  \item \textbf{TrackFleet}
+  \begin{enumerate}[label=\textbf{\arabic{enumi}.\arabic*}, itemsep=2pt]
+    \item Gestão do Projeto
+    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
+      \item Termo de abertura e governança
+      \item Planejamento e acompanhamento
+    \end{enumerate}
+    \item Levantamento e Análise de Requisitos
+    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
+      \item Entrevistas com a transportadora parceira
+      \item Especificação de requisitos funcionais e não funcionais
+    \end{enumerate}
+    \item Desenvolvimento
+    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
+      \item Backend e integração com a API de rastreamento
+      \item Frontend (mapa, painel, cadastros)
+      \item Autenticação e conformidade com a LGPD
+    \end{enumerate}
+    \item Testes e Homologação
+    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
+      \item Testes automatizados
+      \item Piloto com a transportadora parceira
+    \end{enumerate}
+    \item Treinamento e Encerramento
+    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
+      \item Treinamento dos usuários piloto
+      \item Documentação final e lições aprendidas
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
+
+\section{Dicionário da EAP (resumido)}
+\begin{center}
+\begin{tabularx}{\textwidth}{l L L}
+\toprule
+\textbf{Pacote} & \textbf{Descrição} & \textbf{Critério de aceite} \\
+\midrule
+1.3.1 Backend + integração & API própria consumindo dados do rastreador piloto e gerando alertas & Dados do rastreador chegam à plataforma e alertas são disparados corretamente \\
+1.3.2 Frontend & Mapa, painel e cadastros funcionais & Gestor localiza um veículo e visualiza alertas em até 3 cliques \\
+1.4.2 Piloto & Uso real da plataforma pela transportadora parceira por um período de teste & Transportadora usa a plataforma e valida os indicadores gerados \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Fora do Escopo do Projeto (Exclusões)}
+\begin{itemize}[itemsep=2pt]
+  \item Compra, instalação física ou manutenção de rastreadores GPS.
+  \item Suporte comercial e operação em produção após o encerramento do piloto acadêmico.
+  \item Integração com mais de um provedor de hardware de rastreamento.
+  \item Certificações formais de segurança ou auditorias externas de compliance além da adequação básica à LGPD.
+\end{itemize}
+
+\section{Linha de Base do Escopo e Controle de Mudanças}
+A linha de base do escopo deste documento é aprovada pelo patrocinador (Diretoria da transportadora parceira), conforme definido no Documento de Governança. Qualquer mudança de escopo que altere objetivo, prazo ou entregáveis essenciais segue o mesmo fluxo de escalonamento já definido: sem consenso entre os dois GPs, ou se a mudança afetar objetivo/prazo/valor esperado, a decisão sobe ao patrocinador e é registrada no log de decisões do projeto. Isso evita o \textit{scope creep} --- o crescimento não controlado do escopo por pequenos acréscimos aceitos ``por fora'' do processo.
+
+\section{Indicadores de Escopo}
+\begin{center}
+\begin{tabularx}{\textwidth}{L l l}
+\toprule
+\textbf{Indicador} & \textbf{Fórmula} & \textbf{Leitura} \\
+\midrule
+Precisão da Definição & Itens entregues corretamente $\div$ Itens planejados $\times$ 100 & Maior é melhor \\
+Scope Creep & Entregas não planejadas $\div$ Total de entregas $\times$ 100 & Menor é melhor \\
+Estabilidade de Requisitos & Requisitos não alterados $\div$ Total de requisitos $\times$ 100 & Maior é melhor \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Esses indicadores devem ser acompanhados a cada check-in do projeto (conforme a cadência definida na Governança), para que desvios de escopo sejam percebidos antes da entrega final, e não durante ela.
+
+\end{document}
