@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Regras e Registro de Decisões}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE GOVERNANÇA DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Governança\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 13/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Regras do Jogo e Registro de Decisões}
+
+\vspace{1mm}
+\noindent Os acordos de trabalho que sustentam a governança no dia a dia, e o histórico de decisões já tomadas.
+
+\section{Regras e Acordos de Trabalho}
+\begin{itemize}[itemsep=3pt]
+  \item Toda mudança grande de escopo, prazo ou objetivo vai ao patrocinador antes de ser aceita.
+  \item Toda decisão importante é registrada no log de decisões, no momento em que é tomada.
+  \item Definição de Pronto: uma funcionalidade só é considerada pronta quando testada e validada pelos dois GPs.
+  \item Sem consenso entre os dois GPs, a decisão sobe direto ao patrocinador, que desempata.
+  \item As reuniões de check-in não são puladas; se um integrante faltar, o outro registra os pontos e assume as decisões operacionais do dia.
+\end{itemize}
+
+\section{Registro de Decisões}
+\begin{center}
+\begin{tabularx}{\textwidth}{l L l}
+\toprule
+\textbf{Data} & \textbf{Decisão} & \textbf{Responsável} \\
+\midrule
+13/08 & Escolhido o modelo de governança híbrido (leve) & GPs \\
+13/08 & Definido o escopo inicial: frotas de pequenas transportadoras & GP (Kerlon) \\
+13/08 & Definidas as três métricas de resultado e o sinal de alerta & GPs \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\end{document}

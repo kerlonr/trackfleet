@@ -3,24 +3,19 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
 \usepackage[margin=2.5cm]{geometry}
-\usepackage{titlesec}
+\usepackage{mathptmx}
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
-\usepackage{xcolor}
+\usepackage{forest}
 \usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
 \usepackage{fancyhdr}
-
-\definecolor{tfblue}{RGB}{20,40,70}
-\definecolor{tfgold}{RGB}{200,150,40}
-
-\titleformat{\section}{\normalfont\Large\bfseries\color{tfblue}}{\thesection}{0.6em}{}
-\titleformat{\subsection}{\normalfont\large\bfseries\color{tfblue}}{\thesubsection}{0.6em}{}
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textit{TrackFleet --- Escopo do Projeto}}
+\fancyhead[L]{\small TrackFleet --- Escopo do Projeto}
 \fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -29,17 +24,20 @@
 \begin{document}
 
 \begin{center}
-{\LARGE\bfseries\color{tfblue} DOCUMENTO DE ESCOPO DO PROJETO}\\[2pt]
-{\Large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-{\small\itshape Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Escopo}\\[2pt]
-{\small Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 20/08}
+{\Large\bfseries DOCUMENTO DE ESCOPO DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Escopo\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 20/08
 \end{center}
 
 \vspace{2mm}
-\noindent\textbf{\color{tfgold}\large Escopo do Projeto}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Escopo do Projeto}
 
 \vspace{1mm}
-\noindent\textit{O ``como'': todo o trabalho necessário --- e apenas o necessário --- para entregar o Escopo do Produto descrito no documento correspondente. É o componente mais importante da linha de base, pois nele reside o valor esperado do projeto.}
+\noindent O ``como'': todo o trabalho necessário, e apenas o necessário, para entregar o Escopo do Produto descrito no documento correspondente. É o componente mais importante da linha de base, pois nele reside o valor esperado do projeto.
 
 \section{Descrição do Trabalho do Projeto}
 \begin{itemize}[itemsep=2pt]
@@ -57,37 +55,47 @@
 \section{Estrutura Analítica do Projeto (EAP)}
 A EAP decompõe o trabalho total em pacotes menores, atribuíveis e mensuráveis, tornando o acordo sobre o escopo visível a todos os envolvidos.
 
-\begin{enumerate}[label=\textbf{\arabic*.}, itemsep=3pt]
-  \item \textbf{TrackFleet}
-  \begin{enumerate}[label=\textbf{\arabic{enumi}.\arabic*}, itemsep=2pt]
-    \item Gestão do Projeto
-    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
-      \item Termo de abertura e governança
-      \item Planejamento e acompanhamento
-    \end{enumerate}
-    \item Levantamento e Análise de Requisitos
-    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
-      \item Entrevistas com a transportadora parceira
-      \item Especificação de requisitos funcionais e não funcionais
-    \end{enumerate}
-    \item Desenvolvimento
-    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
-      \item Backend e integração com a API de rastreamento
-      \item Frontend (mapa, painel, cadastros)
-      \item Autenticação e conformidade com a LGPD
-    \end{enumerate}
-    \item Testes e Homologação
-    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
-      \item Testes automatizados
-      \item Piloto com a transportadora parceira
-    \end{enumerate}
-    \item Treinamento e Encerramento
-    \begin{enumerate}[label=\arabic{enumi}.\arabic{enumii}.\arabic*, itemsep=1pt]
-      \item Treinamento dos usuários piloto
-      \item Documentação final e lições aprendidas
-    \end{enumerate}
-  \end{enumerate}
-\end{enumerate}
+A estrutura é apresentada como caixinhas de entregáveis do escopo: o projeto no topo, os grandes entregáveis no segundo nível e os pacotes de trabalho, atribuíveis a um responsável, no terceiro nível.
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{forest}
+  for tree={
+    draw,
+    rounded corners,
+    align=center,
+    inner sep=5pt,
+    l sep=16pt,
+    s sep=10pt,
+    edge={-},
+    font=\small,
+  }
+  [{1\\TrackFleet}
+    [{1.1\\Gestão do Projeto}
+      [{1.1.1\\Termo de abertura\\e governança}]
+      [{1.1.2\\Planejamento e\\acompanhamento}]
+    ]
+    [{1.2\\Levantamento e Análise\\de Requisitos}
+      [{1.2.1\\Entrevistas com a\\transportadora parceira}]
+      [{1.2.2\\Especificação de\\requisitos}]
+    ]
+    [{1.3\\Desenvolvimento}
+      [{1.3.1\\Backend e integração\\com a API}]
+      [{1.3.2\\Frontend (mapa,\\painel, cadastros)}]
+      [{1.3.3\\Autenticação e\\conformidade LGPD}]
+    ]
+    [{1.4\\Testes e\\Homologação}
+      [{1.4.1\\Testes\\automatizados}]
+      [{1.4.2\\Piloto com a\\transportadora parceira}]
+    ]
+    [{1.5\\Treinamento e\\Encerramento}
+      [{1.5.1\\Treinamento dos\\usuários piloto}]
+      [{1.5.2\\Documentação final e\\lições aprendidas}]
+    ]
+  ]
+\end{forest}
+}
+\end{center}
 
 \section{Dicionário da EAP (resumido)}
 \begin{center}
@@ -111,7 +119,7 @@ A EAP decompõe o trabalho total em pacotes menores, atribuíveis e mensuráveis
 \end{itemize}
 
 \section{Linha de Base do Escopo e Controle de Mudanças}
-A linha de base do escopo deste documento é aprovada pelo patrocinador (Diretoria da transportadora parceira), conforme definido no Documento de Governança. Qualquer mudança de escopo que altere objetivo, prazo ou entregáveis essenciais segue o mesmo fluxo de escalonamento já definido: sem consenso entre os dois GPs, ou se a mudança afetar objetivo/prazo/valor esperado, a decisão sobe ao patrocinador e é registrada no log de decisões do projeto. Isso evita o \textit{scope creep} --- o crescimento não controlado do escopo por pequenos acréscimos aceitos ``por fora'' do processo.
+A linha de base do escopo deste documento é aprovada pelo patrocinador (Diretoria da transportadora parceira), conforme definido no Documento de Governança. Qualquer mudança de escopo que altere objetivo, prazo ou entregáveis essenciais segue o mesmo fluxo de escalonamento já definido: sem consenso entre os dois GPs, ou se a mudança afetar objetivo/prazo/valor esperado, a decisão sobe ao patrocinador e é registrada no log de decisões do projeto. Isso evita o ``scope creep'', o crescimento não controlado do escopo por pequenos acréscimos aceitos por fora do processo.
 
 \section{Indicadores de Escopo}
 \begin{center}

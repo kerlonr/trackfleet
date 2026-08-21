@@ -1,0 +1,20 @@
+# Arquivos temporários de compilação LaTeX (gerados via -aux-directory)
+.build/
+**/.build/
+
+# Arquivos auxiliares do LaTeX que às vezes escapam do -aux-directory
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.synctex(busy)
+
+# PDFs finais permanecem versionados (são o entregável) --- não ignorar *.pdf

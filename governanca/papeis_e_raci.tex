@@ -1,0 +1,67 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Papéis e Matriz RACI}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE GOVERNANÇA DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Governança\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 13/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Papéis e Matriz RACI}
+
+\vspace{1mm}
+\noindent Quem faz o trabalho e quem responde por cada decisão-chave do projeto, para que nenhuma decisão fique sem dono.
+
+\section{Papéis}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{GP --- Enzo Allebrand:} conduz o projeto em co-gestão, organiza as entregas e responde por elas.
+  \item \textbf{GP --- Kerlon Ribeiro:} conduz o projeto em co-gestão, organiza as entregas e responde por elas.
+  \item \textbf{Patrocinador:} Diretoria da transportadora parceira; aprova marcos e desempata impasses (papel fictício definido pela dupla).
+\end{itemize}
+
+\section{Matriz RACI}
+R = faz $\cdot$ A = responde, só um por linha $\cdot$ C = consultado $\cdot$ I = informado.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L c c c}
+\toprule
+\textbf{Decisão-chave} & \textbf{Patrocinador} & \textbf{GP (Enzo)} & \textbf{GP (Kerlon)} \\
+\midrule
+Aprovar a ideia / termo de abertura & A & C & C \\
+Aprovar mudança de escopo/prazo grande & A & C & C \\
+Decisões técnicas e do dia a dia & I & R & R \\
+Homologar a entrega de cada etapa & A & R & R \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Observação}
+Como os dois integrantes são GPs em co-gestão, as decisões de execução são compartilhadas entre eles (R/R). Nas decisões que precisam de um único responsável, esse papel é do patrocinador, o que garante a regra de apenas um accountable por linha.
+
+\end{document}

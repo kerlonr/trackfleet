@@ -38,15 +38,16 @@ valores diferentes para o mesmo campo em documentos diferentes.
 
 - `aulas/` — os slides de cada aula da disciplina, em PDF, na ordem do cronograma (ex.:
   `3. Escopo_PMBOK_8a_Edicao.pdf`). São a fonte teórica de cada domínio.
-- `o que temos/` — os entregáveis já produzidos para o domínio **Governança** (aula 2, 13/08),
-  divididos em 5 PDFs numerados (`1.Termo_de_Abertura.pdf` … `5.Regras_e_Registro.pdf`), formando
-  juntos o "Documento de Governança do Projeto".
+- `o que temos/` — os 5 PDFs originais do domínio **Governança** (aula 2, 13/08), mantidos como
+  arquivo histórico. A versão de referência agora é a LaTeX em `governanca/`.
+- `governanca/` — os entregáveis LaTeX do domínio **Governança**: `termo_de_abertura.tex`,
+  `papeis_e_raci.tex`, `modelo_e_escalonamento.tex`, `metricas_e_sinal.tex`, `regras_e_registro.tex`.
 - `escopo/` — os entregáveis LaTeX do domínio **Escopo** (aula 3, 20/08): `produto.tex`,
   `projeto.tex`, `qualidade.tex` (Escopo do Produto, Escopo do Projeto e Qualidade, as três dimensões
   do domínio, cada uma em arquivo separado).
 - Para os próximos domínios (Cronograma, Finanças, Partes Interessadas, Recursos, Riscos), crie uma
   pasta nova por domínio, com o mesmo padrão: um `.tex` por parte relevante do domínio, nomeado pelo
-  conteúdo (não por número de slide).
+  conteúdo (não por número de slide), em minúsculas com underscore (ex.: `metricas_e_sinal.tex`).
 
 ## Padrão dos documentos
 
@@ -66,15 +67,31 @@ requisitos reais, exclusões reais, indicadores reais). Tabelas usam `booktabs` 
 aninhadas (como a EAP) usam `enumitem`. Os arquivos são LaTeX autocontidos (preâmbulo completo em cada
 `.tex`), compiláveis isoladamente com `pdflatex` ou no Overleaf.
 
+**Visual sóbrio, de projeto acadêmico sério:** fonte Times New Roman (pacote `mathptmx`) e nenhuma cor
+decorativa — sem títulos coloridos, sem paletas de destaque, sem blocos de cor. Cabeçalhos de seção
+usam a formatação padrão do LaTeX (negrito preto). Essa regra vale para todo `.tex` novo do projeto.
+
+**Sem negrito ou itálico no meio da frase.** `\textbf{}`/`\textit{}` só são usados em posições
+estruturais: o subtítulo da seção logo abaixo do cabeçalho, cabeçalhos de tabela, e o rótulo inicial
+de um item de lista (ex.: `\item \textbf{Objetivo:} lançar...`, `\item[\textbf{E1}] Monitoramento...`).
+Nunca destacar uma palavra ou expressão no meio de uma frase corrida — nem para termos estrangeiros
+(escreva ``scope creep'' ou "guardrails" entre aspas, sem itálico).
+
+**Escaneável por tópicos.** Qualquer seção que descreva o que o produto é/faz precisa comunicar isso a
+quem só ler os rótulos em negrito e os itens de lista, sem precisar ler parágrafos corridos — o
+cliente do projeto deve entender o produto batendo o olho nos tópicos. Prefira listas com rótulo
+(`O que é:`, `Para quem:`, `Como funciona:`) a parágrafos densos sempre que a seção define algo que o
+leitor pode querer entender rapidamente.
+
 ## Ao começar um novo domínio
 
 1. Leia o PDF da aula correspondente em `aulas/` para extrair os conceitos-chave daquele domínio de
    desempenho.
-2. Releia o Termo de Abertura (`o que temos/1.Termo_de_Abertura.pdf`) e os documentos de Governança já
-   existentes para manter consistência de dados de contexto (problema, objetivo, restrições, papéis).
+2. Releia o Termo de Abertura (`governanca/termo_de_abertura.tex`) e os demais documentos de
+   Governança já existentes para manter consistência de dados de contexto (problema, objetivo,
+   restrições, papéis).
 3. Aplique cada conceito do domínio a uma decisão concreta do TrackFleet — nunca deixe uma seção só
    com teoria genérica.
 4. Produza um ou mais arquivos `.tex`, um por sub-parte relevante do domínio (como foi feito para
-   Escopo: Produto, Projeto e Qualidade em arquivos separados), em uma pasta nova nomeada pelo
-   domínio.
+   Governança e para Escopo), em uma pasta nova nomeada pelo domínio.
 5. Responda sempre em português do Brasil, com ortografia completa (acentos e cedilhas corretos).

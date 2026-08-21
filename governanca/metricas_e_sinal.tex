@@ -1,0 +1,61 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Métricas e Sinal de Alerta}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE GOVERNANÇA DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Governança\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 13/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Painel de Métricas e Sinal de Alerta}
+
+\vspace{1mm}
+\noindent Como o projeto vai saber que está entregando valor, e qual sinal antecipa um problema antes de ele virar crise.
+
+\section{Métricas de Resultado}
+Medem valor entregue, não esforço.
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Resultado 1:} número de veículos ativamente monitorados por semana.
+  \item \textbf{Resultado 2:} percentual de alertas de manutenção atendidos antes de virarem problema, ou seja, manutenção preventiva em vez de corretiva.
+  \item \textbf{Resultado 3:} redução percentual estimada no custo de manutenção e combustível, reportada pelas transportadoras piloto.
+\end{itemize}
+
+\section{Sinal de Alerta}
+Indicador antecedente, que avisa cedo se algo vai mal:
+\begin{itemize}[itemsep=3pt]
+  \item Menos de três veículos cadastrados e ativos até a segunda semana de testes aciona o alerta de baixa adoção.
+\end{itemize}
+
+\section{O que Não Usar como Métrica}
+É esforço, não resultado:
+\begin{itemize}[itemsep=3pt]
+  \item Número de linhas de código escritas.
+\end{itemize}
+
+\end{document}

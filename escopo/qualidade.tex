@@ -3,24 +3,19 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
 \usepackage[margin=2.5cm]{geometry}
-\usepackage{titlesec}
+\usepackage{mathptmx}
+\usepackage{amssymb}
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
-\usepackage{xcolor}
 \usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
 \usepackage{fancyhdr}
-
-\definecolor{tfblue}{RGB}{20,40,70}
-\definecolor{tfgold}{RGB}{200,150,40}
-
-\titleformat{\section}{\normalfont\Large\bfseries\color{tfblue}}{\thesection}{0.6em}{}
-\titleformat{\subsection}{\normalfont\large\bfseries\color{tfblue}}{\thesubsection}{0.6em}{}
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\textit{TrackFleet --- Qualidade}}
+\fancyhead[L]{\small TrackFleet --- Qualidade}
 \fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -30,17 +25,20 @@
 \begin{document}
 
 \begin{center}
-{\LARGE\bfseries\color{tfblue} DOCUMENTO DE ESCOPO DO PROJETO}\\[2pt]
-{\Large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-{\small\itshape Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Escopo}\\[2pt]
-{\small Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 20/08}
+{\Large\bfseries DOCUMENTO DE ESCOPO DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Escopo\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 20/08
 \end{center}
 
 \vspace{2mm}
-\noindent\textbf{\color{tfgold}\large Qualidade}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Qualidade}
 
 \vspace{1mm}
-\noindent\textit{A terceira dimensão do escopo --- não um domínio à parte, mas um atributo integrante dele. A qualidade foca em atender às expectativas dos stakeholders e em cumprir os requisitos definidos tanto no Escopo do Produto quanto no Escopo do Projeto.}
+\noindent A terceira dimensão do escopo: não um domínio à parte, mas um atributo integrante dele. A qualidade foca em atender às expectativas dos stakeholders e em cumprir os requisitos definidos tanto no Escopo do Produto quanto no Escopo do Projeto.
 
 \section{Requisitos de Qualidade do Produto}
 \begin{itemize}[itemsep=2pt]
@@ -59,7 +57,7 @@
 \end{itemize}
 
 \section{Definição de Pronto (DoD)}
-A DoD é o conjunto de critérios que uma funcionalidade precisa cumprir para ser considerada apta ao uso pela transportadora piloto. Ela é definida \textbf{antes} de a funcionalidade começar a ser construída, para blindar o aceite e evitar a conversa em que a equipe diz que terminou e o patrocinador diz que não.
+A DoD é o conjunto de critérios que uma funcionalidade precisa cumprir para ser considerada apta ao uso pela transportadora piloto. Ela é definida antes de a funcionalidade começar a ser construída, para blindar o aceite e evitar a conversa em que a equipe diz que terminou e o patrocinador diz que não.
 
 \begin{itemize}[itemsep=3pt]
   \item[\dodbox] Funcionalidade implementada conforme o requisito descrito no Escopo do Produto.
@@ -89,10 +87,10 @@ As duas atividades são complementares, mas distintas:
   \item \textbf{Validar o Escopo} --- aceite formal, externo: o patrocinador (Diretoria da transportadora parceira) aprova cada marco relevante do projeto.
   \item \textbf{Controlar o Escopo} --- verificação interna, contínua: os dois GPs conferem, a cada check-in, se o que está sendo construído continua dentro da linha de base aprovada.
 \end{itemize}
-\noindent Um valida o \textbf{resultado}; o outro cuida do \textbf{processo}. Confundir os dois é um dos erros mais comuns de gestão de escopo.
+\noindent Um valida o resultado; o outro cuida do processo. Confundir os dois é um dos erros mais comuns de gestão de escopo.
 
 \section{Prevenção de Scope Creep}
-Os \textit{guardrails} já definidos no Documento de Governança sustentam também a qualidade do escopo:
+As regras de proteção (guardrails) já definidas no Documento de Governança sustentam também a qualidade do escopo:
 \begin{itemize}[itemsep=2pt]
   \item Toda mudança relevante de escopo, prazo ou objetivo passa pelo patrocinador antes de ser aceita.
   \item Toda decisão importante é registrada no log de decisões do projeto, no momento em que é tomada.
