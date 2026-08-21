@@ -38,21 +38,22 @@ valores diferentes para o mesmo campo em documentos diferentes.
 
 - `aulas/` — os slides de cada aula da disciplina, em PDF, na ordem do cronograma (ex.:
   `3. Escopo_PMBOK_8a_Edicao.pdf`). São a fonte teórica de cada domínio.
-- `o que temos/` — os 5 PDFs originais do domínio **Governança** (aula 2, 13/08), mantidos como
-  arquivo histórico. A versão de referência agora é a LaTeX em `governanca/`.
 - `governanca/` — os entregáveis LaTeX do domínio **Governança**: `termo_de_abertura.tex`,
   `papeis_e_raci.tex`, `modelo_e_escalonamento.tex`, `metricas_e_sinal.tex`, `regras_e_registro.tex`.
-- `escopo/` — os entregáveis LaTeX do domínio **Escopo** (aula 3, 20/08): `produto.tex`,
-  `projeto.tex`, `qualidade.tex` (Escopo do Produto, Escopo do Projeto e Qualidade, as três dimensões
-  do domínio, cada uma em arquivo separado).
+- `escopo/` — o entregável LaTeX do domínio **Escopo** (aula 3, 20/08): `escopo.tex`, um único
+  documento que reúne as três dimensões do domínio (Escopo do Produto, Escopo do Projeto e Qualidade)
+  em partes separadas dentro do mesmo arquivo. Antes eram três `.tex` distintos (`produto.tex`,
+  `projeto.tex`, `qualidade.tex`), fundidos em um só a pedido, com o escopo aprofundado (catálogo
+  detalhado de alertas, catálogo de relatórios e a arquitetura/infraestrutura de tecnologia do
+  produto).
 - Para os próximos domínios (Cronograma, Finanças, Partes Interessadas, Recursos, Riscos), crie uma
   pasta nova por domínio, com o mesmo padrão: um `.tex` por parte relevante do domínio, nomeado pelo
   conteúdo (não por número de slide), em minúsculas com underscore (ex.: `metricas_e_sinal.tex`).
 
 ## Padrão dos documentos
 
-Todo documento de entrega segue o mesmo cabeçalho e tom dos já produzidos (ver `escopo/*.tex` como
-referência de formatação LaTeX pronta para reuso):
+Todo documento de entrega segue o mesmo cabeçalho e tom dos já produzidos (ver `escopo/escopo.tex` e
+os `governanca/*.tex` como referência de formatação LaTeX pronta para reuso):
 
 ```
 DOCUMENTO DE [DOMÍNIO] DO PROJETO

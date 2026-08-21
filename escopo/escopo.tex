@@ -1,0 +1,420 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{forest}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Escopo}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcommand{\dodbox}{$\square$}
+
+\setlist{topsep=3pt}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE ESCOPO DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Escopo\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 20/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent No PMBOK\textregistered\ 8, escopo não é uma coisa só: são três dimensões que acontecem ao mesmo tempo. Este documento reúne as três em um só lugar, cada uma em sua parte, para evitar a armadilha de comprimi-las em um único bloco:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Escopo do Produto (o quê):} as características, funções e atributos do que o TrackFleet deve entregar.
+  \item \textbf{Escopo do Projeto (o como):} todo o trabalho necessário, e apenas o necessário, para entregar o produto.
+  \item \textbf{Qualidade:} a terceira dimensão do escopo --- não um domínio à parte, mas um atributo integrante dele.
+\end{itemize}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Escopo do Produto (o quê)}
+%======================================================================
+
+\noindent\textbf{\large Escopo do Produto}
+
+\vspace{1mm}
+\noindent A descrição das características, funções e atributos do resultado que o TrackFleet deve entregar. Responde à pergunta ``o que a entrega deve ser e fazer?'', distinta do Escopo do Projeto (o ``como'') e da Qualidade, tratados nas partes seguintes.
+
+\subsection{Descrição do Produto}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{O que é:} uma plataforma web de rastreamento e gestão de frotas, acessada por navegador.
+  \item \textbf{Para quem:} pequenas transportadoras, operadas por um gestor de frota e utilizadas também pelos motoristas.
+  \item \textbf{Como funciona:} integra-se, via API, a rastreadores GPS já existentes nos veículos da transportadora parceira; não há fabricação de hardware próprio. Os dados de posição chegam do provedor, são processados pela plataforma e transformados em mapa, alertas e relatórios.
+  \item \textbf{O que entrega:} visibilidade quase em tempo real da frota, alertas automáticos (manutenção, vencimento de documentos, cercas virtuais e perda de sinal) e indicadores de uso para apoiar decisões de gestão baseadas em dados reais.
+\end{itemize}
+
+\subsection{Arquitetura e Tecnologias}
+Como o produto é uma plataforma de software, ``o que ele é'' inclui as decisões de tecnologia e infraestrutura que o sustentam. As escolhas abaixo são a arquitetura de referência do projeto; mudanças estruturais nela seguem o controle de mudanças definido na Parte II.
+
+\subsubsection*{Pilha de tecnologia}
+\begin{center}
+\begin{tabularx}{\textwidth}{l L L}
+\toprule
+\textbf{Camada} & \textbf{Tecnologia} & \textbf{Por que} \\
+\midrule
+Backend / API & Python com Django e Django REST Framework & Framework maduro, produtivo e adequado a regras de negócio e relatórios; expõe uma API REST consumida pelo frontend. \\
+Tarefas agendadas & Job agendado (comando de gerenciamento do Django via cron) & Busca periódica das posições do rastreador e verificação das regras de alerta, sem a complexidade de uma fila de mensagens dedicada. \\
+Banco de dados & PostgreSQL & Armazena veículos, motoristas, trajetos e alertas; os cálculos de distância e de cerca virtual (ponto e raio) são resolvidos na própria aplicação. \\
+Frontend & React (aplicação de página única) com Leaflet e Recharts & Leaflet renderiza o mapa sobre tiles do OpenStreetMap; Recharts monta os gráficos do painel; a interface é responsiva. \\
+Autenticação & Tokens JWT com perfil único (gestor) & Sessões seguras; a primeira versão atende apenas o perfil de gestor. \\
+Integração externa & Cliente HTTP para a API do provedor de rastreamento & Consome as posições por chamadas agendadas (polling) ou por webhook, conforme o provedor piloto suportar. \\
+Geração de relatórios & Exportação em PDF e XLS & Relatórios entregues em formato imprimível (PDF) e em planilha (XLS) para análise. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsubsection*{Infraestrutura}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Contêineres:} a aplicação roda em contêineres Docker orquestrados por docker-compose (serviços: API, banco PostgreSQL e frontend).
+  \item \textbf{Borda e segurança de transporte:} proxy reverso Nginx com TLS, servindo tudo sob HTTPS.
+  \item \textbf{Hospedagem:} nuvem de baixo custo ou VPS, coerente com a restrição de orçamento zero para hardware próprio.
+  \item \textbf{Operação:} segredos em variáveis de ambiente, backup periódico do banco e registro de logs da aplicação.
+\end{itemize}
+
+\subsubsection*{Fluxo de dados, ponta a ponta}
+\begin{enumerate}[itemsep=2pt]
+  \item O rastreador GPS do veículo reporta a posição ao provedor de rastreamento de terceiros.
+  \item Um job agendado consome essas posições pela API do provedor e as grava no PostgreSQL.
+  \item As regras de alerta são avaliadas sobre os dados recebidos, na mesma execução periódica.
+  \item O gestor visualiza mapa, alertas e relatórios no frontend React.
+\end{enumerate}
+
+\subsection{Requisitos Funcionais}
+Organizados pelos módulos do produto.
+
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Cadastros:} cadastro de veículos (placa, modelo, hodômetro, documentos), de motoristas (dados, CNH e validade) e do vínculo motorista--veículo. O motorista é um registro da frota, não um usuário do sistema nesta fase.
+  \item \textbf{Integração e ingestão:} integração com a API do provedor de rastreamento piloto e ingestão periódica das posições recebidas.
+  \item \textbf{Monitoramento:} mapa com a localização quase em tempo real dos veículos ativos e histórico de trajetos por veículo e por período.
+  \item \textbf{Cercas virtuais:} definição de áreas circulares (ponto central e raio) permitidas ou proibidas por veículo.
+  \item \textbf{Motor de alertas:} geração automática dos alertas do catálogo (Seção 1.5), com registro de status (aberto, resolvido) e notificação no aplicativo e por e-mail.
+  \item \textbf{Relatórios:} emissão dos relatórios do catálogo (Seção 1.6), com filtros e exportação em PDF e XLS.
+  \item \textbf{Painel de indicadores:} veículos ativos e alertas pendentes por categoria.
+  \item \textbf{Acesso:} autenticação com perfil de gestor.
+\end{itemize}
+
+\subsection{Catálogo de Alertas}
+Detalhar ``emitir alertas'' significa dizer exatamente quais alertas, e como cada um é disparado. Em vez de uma lista longa de alertas parecidos, o TrackFleet organiza a emissão em quatro motores de alerta configuráveis, cada um cobrindo vários itens da frota. Cada alerta gerado é registrado na plataforma e notificado ao gestor no aplicativo e por e-mail.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L L L}
+\toprule
+\textbf{Motor de alerta} & \textbf{Itens que cobre} & \textbf{Gatilho (condição de disparo)} \\
+\midrule
+Manutenção preventiva (por km/tempo) & Troca de óleo, revisão periódica, pneus e freios & Quilometragem rodada ou tempo decorrido desde a última execução do item atinge o limite configurado \\
+Vencimento de documento (por data) & Licenciamento/IPVA, seguro do veículo, CNH do motorista & Data de vencimento do documento se aproxima, com a antecedência configurada \\
+Cerca virtual (geofence) & Áreas permitidas ou proibidas por veículo & O veículo cruza o raio de uma área definida (ponto central e raio) \\
+Perda de sinal do rastreador & Todos os veículos ativos & Nenhuma posição recebida do veículo por tempo acima do limite \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Os limites (quilometragem, antecedência de vencimento, ponto e raio da cerca, tempo sem sinal) e os itens de cada motor são parâmetros configuráveis pelo gestor, não valores fixos no código. Alertas que dependeriam de telemetria não garantida pela API do provedor (por exemplo, excesso de velocidade e ociosidade de motor) ficam fora desta fase, conforme a Seção 1.7.
+
+\subsection{Catálogo de Relatórios}
+Detalhar ``emitir relatórios'' significa dizer quais relatórios e o que cada um responde. Todos são filtráveis por período, veículo e motorista, e exportáveis em PDF e XLS.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L L}
+\toprule
+\textbf{Relatório} & \textbf{O que responde} \\
+\midrule
+Relatório de alertas & Quais alertas foram emitidos no período, por categoria, veículo e motorista, com o status de cada um (aberto ou resolvido); inclui os documentos próximos do vencimento \\
+Relatório de uso por veículo & Km rodados, horas em operação e número de viagens de cada veículo \\
+Relatório de manutenção & Manutenções previstas frente às realizadas por veículo \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent O painel gerencial (dashboard), com veículos ativos e alertas pendentes, é uma visão de tela do produto (Seção 1.3), não um relatório exportável.
+
+\subsection{Requisitos Não Funcionais}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Conformidade com a LGPD:} consentimento informado e minimização no tratamento de dados de localização e de motoristas; retenção do histórico por prazo limitado; acesso restrito por autenticação.
+  \item \textbf{Atualidade da posição:} a localização exibida no mapa reflete a última leitura do rastreador com atraso perceptível mínimo, respeitado o intervalo de envio do provedor.
+  \item \textbf{Segurança:} tráfego sob HTTPS, senhas armazenadas com hash e controle de acesso autenticado.
+  \item \textbf{Responsividade:} interface utilizável em desktop e em navegador mobile.
+  \item \textbf{Disponibilidade:} plataforma no ar durante toda a janela de testes com a transportadora piloto.
+  \item \textbf{Desempenho:} telas principais (mapa e painel) respondem em tempo adequado ao uso do gestor.
+\end{itemize}
+
+\subsection{Fora do Escopo do Produto (Exclusões)}
+Tão importante quanto listar o que entra é deixar explícito o que não entra, para evitar expectativas equivocadas:
+\begin{itemize}[itemsep=2pt]
+  \item Fabricação, aquisição ou instalação física de rastreadores GPS próprios.
+  \item Aplicativo mobile nativo (iOS/Android); a primeira versão é web responsiva.
+  \item Módulo de pagamento, faturamento ou cobrança.
+  \item Roteirização ou otimização automática de rotas.
+  \item Integração simultânea com múltiplos provedores de rastreamento (apenas um provedor piloto nesta fase).
+  \item Bloqueio remoto do veículo ou qualquer atuação sobre o hardware embarcado.
+  \item Login e aplicativo próprios para o motorista; nesta fase o motorista é apenas um registro da frota, e o único usuário do sistema é o gestor.
+  \item Alertas que dependem de telemetria não garantida pela API do provedor: excesso de velocidade, ociosidade de motor (motor ligado parado) e uso fora do horário de expediente.
+  \item Cercas virtuais desenhadas como polígonos livres; nesta fase a cerca é circular (ponto central e raio).
+  \item Indicador de economia estimada em reais, por depender de premissas de custo frágeis nesta fase.
+\end{itemize}
+
+\subsection{Estrutura do Escopo: Backlog do Produto}
+Por se tratar de um projeto conduzido com governança híbrida e leve (conforme o Documento de Governança), o escopo do produto é estruturado como um backlog, decomposto em épicos, features e histórias de usuário, em vez de uma EAP rígida.
+
+\begin{itemize}[itemsep=4pt]
+  \item[\textbf{E1}] Monitoramento em tempo real --- localização atual e histórico de trajetos.
+  \begin{itemize}
+    \item Como gestor, quero ver todos os veículos ativos em um mapa, para saber onde a frota está agora.
+    \item Como gestor, quero consultar o trajeto de um veículo em um período, para auditar o uso.
+  \end{itemize}
+  \item[\textbf{E2}] Alertas automáticos --- manutenção, vencimento de documentos, cercas virtuais e perda de sinal.
+  \begin{itemize}
+    \item Como gestor, quero receber um alerta antes que a manutenção vire corretiva, para reduzir custo.
+    \item Como gestor, quero ser avisado quando um documento estiver perto de vencer, para não rodar irregular.
+    \item Como gestor, quero um alerta quando um veículo sair de uma área permitida, para agir na hora.
+  \end{itemize}
+  \item[\textbf{E3}] Gestão de frota e usuários --- cadastros, vínculos e perfis.
+  \begin{itemize}
+    \item Como gestor, quero cadastrar veículos e motoristas e vinculá-los, para organizar a frota.
+  \end{itemize}
+  \item[\textbf{E4}] Relatórios e indicadores --- painel e exportação.
+  \begin{itemize}
+    \item Como gestor, quero um painel com veículos ativos e alertas pendentes, para decidir rapidamente.
+    \item Como gestor, quero exportar o relatório de alertas do período, para prestar contas à diretoria.
+  \end{itemize}
+\end{itemize}
+
+\subsection{Value Breakdown Structure (VBS)}
+A VBS conecta o escopo do produto ao valor pretendido, tornando visível qual entregável move mais o ponteiro do projeto.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L r}
+\toprule
+\textbf{Entregável (épico)} & \textbf{Valor} \\
+\midrule
+E1 --- Monitoramento em tempo real & 35\% \\
+E2 --- Alertas automáticos & 35\% \\
+E4 --- Relatórios e indicadores & 20\% \\
+E3 --- Gestão de frota e usuários (infraestrutura base) & 10\% \\
+Conformidade com a LGPD & 100\% (obrigatório) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Leitura da VBS: o monitoramento em tempo real e os alertas automáticos são os entregáveis mais valiosos e devem ser priorizados sobre relatórios avançados caso o prazo do semestre aperte. A conformidade com a LGPD é obrigatória e não é negociável, independentemente de prioridade de valor.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Escopo do Projeto (o como)}
+%======================================================================
+
+\noindent\textbf{\large Escopo do Projeto}
+
+\vspace{1mm}
+\noindent Todo o trabalho necessário, e apenas o necessário, para entregar o Escopo do Produto descrito na Parte I. É o componente mais importante da linha de base, pois nele reside o valor esperado do projeto.
+
+\subsection{Descrição do Trabalho do Projeto}
+\begin{itemize}[itemsep=2pt]
+  \item Levantar requisitos com a transportadora parceira e mapear a integração com a API do provedor de rastreamento piloto.
+  \item Projetar a arquitetura da solução (backend Django, frontend React, banco PostgreSQL, integração externa e infraestrutura em contêineres).
+  \item Desenvolver o backend: API própria, ingestão das posições e os quatro motores de alerta do catálogo.
+  \item Desenvolver o frontend: mapa, painel de indicadores, cadastros e relatórios exportáveis.
+  \item Implementar a autenticação do gestor e as medidas de conformidade com a LGPD.
+  \item Testar a solução (testes automatizados e testes com dados reais/simulados do rastreador).
+  \item Homologar a plataforma com a transportadora piloto.
+  \item Treinar o gestor piloto e coletar feedback.
+  \item Documentar o projeto e encerrar a primeira fase, com registro de lições aprendidas.
+\end{itemize}
+
+\subsection{Estrutura Analítica do Projeto (EAP)}
+A EAP decompõe o trabalho total em pacotes menores, atribuíveis e mensuráveis, tornando o acordo sobre o escopo visível a todos os envolvidos. O projeto está no topo, os grandes entregáveis no segundo nível e os pacotes de trabalho no terceiro.
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{forest}
+  for tree={
+    draw,
+    rounded corners,
+    align=center,
+    inner sep=5pt,
+    l sep=16pt,
+    s sep=8pt,
+    edge={-},
+    font=\small,
+  }
+  [{1\\TrackFleet}
+    [{1.1\\Gestão do\\Projeto}
+      [{1.1.1\\Termo de abertura\\e governança}]
+      [{1.1.2\\Planejamento e\\acompanhamento}]
+    ]
+    [{1.2\\Requisitos}
+      [{1.2.1\\Entrevistas com a\\transportadora}]
+      [{1.2.2\\Especificação de\\requisitos}]
+    ]
+    [{1.3\\Desenvolvimento}
+      [{1.3.1\\Backend, API e\\ingestão}]
+      [{1.3.2\\Motor de\\alertas}]
+      [{1.3.3\\Frontend (mapa,\\painel, relatórios)}]
+      [{1.3.4\\Autenticação (gestor)\\e LGPD}]
+    ]
+    [{1.4\\Testes e\\Homologação}
+      [{1.4.1\\Testes\\automatizados}]
+      [{1.4.2\\Piloto com a\\transportadora}]
+    ]
+    [{1.5\\Treinamento e\\Encerramento}
+      [{1.5.1\\Treinamento do\\gestor piloto}]
+      [{1.5.2\\Documentação e\\lições aprendidas}]
+    ]
+  ]
+\end{forest}
+}
+\end{center}
+
+\subsection{Dicionário da EAP}
+\begin{center}
+\begin{tabularx}{\textwidth}{l L L}
+\toprule
+\textbf{Pacote} & \textbf{Descrição} & \textbf{Critério de aceite} \\
+\midrule
+1.3.1 Backend, API e ingestão & API própria em Django consumindo dados do rastreador piloto e persistindo posições no PostgreSQL & Dados do rastreador chegam à plataforma e ficam disponíveis para consulta \\
+1.3.2 Motor de alertas & Os quatro motores que avaliam os dados e geram os alertas do catálogo, com status e notificação & Cada motor do catálogo dispara corretamente na condição configurada \\
+1.3.3 Frontend & Mapa, painel, cadastros e relatórios exportáveis em React & Gestor localiza um veículo e visualiza alertas pendentes em poucos cliques \\
+1.3.4 Autenticação e LGPD & Perfil de gestor e medidas de minimização e proteção de dados & Acesso autenticado e sem exposição indevida de dados pessoais \\
+1.4.2 Piloto & Uso real da plataforma pela transportadora parceira por um período de teste & Transportadora usa a plataforma e valida os indicadores gerados \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Fora do Escopo do Projeto (Exclusões)}
+\begin{itemize}[itemsep=2pt]
+  \item Compra, instalação física ou manutenção de rastreadores GPS.
+  \item Suporte comercial e operação em produção após o encerramento do piloto acadêmico.
+  \item Integração com mais de um provedor de hardware de rastreamento.
+  \item Certificações formais de segurança ou auditorias externas de compliance além da adequação básica à LGPD.
+  \item Desenvolvimento de aplicativo mobile nativo.
+\end{itemize}
+
+\subsection{Linha de Base do Escopo e Controle de Mudanças}
+A linha de base do escopo deste documento é aprovada pelo patrocinador (Diretoria da transportadora parceira), conforme definido no Documento de Governança. Qualquer mudança de escopo que altere objetivo, prazo ou entregáveis essenciais segue o mesmo fluxo de escalonamento já definido: sem consenso entre os dois GPs, ou se a mudança afetar objetivo/prazo/valor esperado, a decisão sobe ao patrocinador e é registrada no log de decisões do projeto. Isso evita o ``scope creep'', o crescimento não controlado do escopo por pequenos acréscimos aceitos por fora do processo.
+
+\subsection{Indicadores de Escopo}
+\begin{center}
+\begin{tabularx}{\textwidth}{L l l}
+\toprule
+\textbf{Indicador} & \textbf{Fórmula} & \textbf{Leitura} \\
+\midrule
+Precisão da Definição & Itens entregues corretamente $\div$ Itens planejados $\times$ 100 & Maior é melhor \\
+Scope Creep & Entregas não planejadas $\div$ Total de entregas $\times$ 100 & Menor é melhor \\
+Estabilidade de Requisitos & Requisitos não alterados $\div$ Total de requisitos $\times$ 100 & Maior é melhor \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Esses indicadores devem ser acompanhados a cada check-in do projeto (conforme a cadência definida na Governança), para que desvios de escopo sejam percebidos antes da entrega final, e não durante ela.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Qualidade}
+%======================================================================
+
+\noindent\textbf{\large Qualidade}
+
+\vspace{1mm}
+\noindent A terceira dimensão do escopo: não um domínio à parte, mas um atributo integrante dele. A qualidade foca em atender às expectativas dos stakeholders e em cumprir os requisitos definidos tanto no Escopo do Produto quanto no Escopo do Projeto.
+
+\subsection{Requisitos de Qualidade do Produto}
+\begin{itemize}[itemsep=2pt]
+  \item Precisão e atualidade da localização exibida no mapa, com latência aceitável em relação à posição real do rastreador.
+  \item Confiabilidade dos alertas, com o mínimo possível de falsos positivos e falsos negativos em cada motor do catálogo.
+  \item Usabilidade do painel: o gestor deve conseguir localizar um veículo e visualizar alertas pendentes em poucos cliques.
+  \item Conformidade com a LGPD no tratamento de dados de localização e de motoristas (consentimento informado e minimização de dados coletados).
+  \item Disponibilidade da plataforma durante toda a janela de testes com a transportadora piloto.
+\end{itemize}
+
+\subsection{Requisitos de Qualidade do Projeto (Processo)}
+\begin{itemize}[itemsep=2pt]
+  \item Todo código é revisado pelos dois GPs antes de ser integrado --- não há code review unilateral.
+  \item Rotinas críticas (integração com a API do rastreador, ingestão e cálculo de alertas) possuem testes automatizados.
+  \item A documentação do projeto é atualizada a cada entrega, não deixada para o final.
+\end{itemize}
+
+\subsection{Definição de Pronto (DoD)}
+A DoD é o conjunto de critérios que uma funcionalidade precisa cumprir para ser considerada apta ao uso pela transportadora piloto. Ela é definida antes de a funcionalidade começar a ser construída, para blindar o aceite e evitar a conversa em que a equipe diz que terminou e o patrocinador diz que não.
+
+\begin{itemize}[itemsep=3pt]
+  \item[\dodbox] Funcionalidade implementada conforme o requisito descrito no Escopo do Produto.
+  \item[\dodbox] Código revisado por ambos os GPs (Enzo Allebrand e Kerlon Ribeiro).
+  \item[\dodbox] Testada com dados reais ou simulados do rastreador GPS piloto.
+  \item[\dodbox] Sem exposição indevida de dados pessoais (checagem de conformidade com a LGPD).
+  \item[\dodbox] Validada e aceita pelos dois GPs; mudanças de escopo, prazo ou objetivo passam ainda pelo patrocinador, conforme a matriz RACI da Governança.
+\end{itemize}
+
+\subsection{Critérios de Aceite por Entregável}
+\begin{center}
+\begin{tabularx}{\textwidth}{L L}
+\toprule
+\textbf{Entregável} & \textbf{Critério de aceite} \\
+\midrule
+Monitoramento em tempo real (E1) & O gestor visualiza, no mapa, a posição atual de todos os veículos ativos com atraso perceptível mínimo \\
+Alertas automáticos (E2) & Cada motor de alerta do catálogo dispara automaticamente na condição configurada, sem falso positivo ou negativo relevante \\
+Relatórios e indicadores (E4) & O painel exibe corretamente veículos ativos e alertas pendentes, e os relatórios são exportáveis em PDF e XLS \\
+Piloto com a transportadora parceira & A transportadora utiliza a plataforma no período de teste e confirma, por escrito, que os indicadores refletem a realidade da frota \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Validar \texttimes\ Controlar o Escopo}
+As duas atividades são complementares, mas distintas:
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Validar o Escopo} --- aceite formal, externo: o patrocinador (Diretoria da transportadora parceira) aprova cada marco relevante do projeto.
+  \item \textbf{Controlar o Escopo} --- verificação interna, contínua: os dois GPs conferem, a cada check-in, se o que está sendo construído continua dentro da linha de base aprovada.
+\end{itemize}
+\noindent Um valida o resultado; o outro cuida do processo. Confundir os dois é um dos erros mais comuns de gestão de escopo.
+
+\subsection{Prevenção de Scope Creep}
+As regras de proteção (guardrails) já definidas no Documento de Governança sustentam também a qualidade do escopo:
+\begin{itemize}[itemsep=2pt]
+  \item Toda mudança relevante de escopo, prazo ou objetivo passa pelo patrocinador antes de ser aceita.
+  \item Toda decisão importante é registrada no log de decisões do projeto, no momento em que é tomada.
+  \item Nenhuma funcionalidade é considerada ``pronta'' sem passar pela DoD definida na Seção 3.3.
+  \item Sem consenso entre os dois GPs, a decisão sobe direto ao patrocinador, que desempata.
+\end{itemize}
+
+\subsection{Métricas de Qualidade}
+\begin{center}
+\begin{tabularx}{\textwidth}{L l}
+\toprule
+\textbf{Métrica} & \textbf{Leitura} \\
+\midrule
+Taxa de defeitos encontrados no piloto & Menor é melhor \\
+\% de funcionalidades aceitas sem retrabalho na primeira validação & Maior é melhor \\
+\% de alertas corretos (sem falso positivo/negativo) & Maior é melhor \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\end{document}
