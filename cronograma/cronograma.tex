@@ -1,0 +1,307 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Cronograma}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\setlist{topsep=3pt}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE CRONOGRAMA DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Cronograma\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 27/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent No PMBOK\textregistered\ 8, o domínio de desempenho Cronograma cobre três processos: \textbf{Definir Atividades} (quebrar a EAP em trabalho executável), \textbf{Sequenciar Atividades} (ligar esse trabalho por dependências lógicas) e \textbf{Desenvolver e Controlar o Cronograma} (transformar a rede de atividades em datas, identificar o caminho crítico e manter isso vivo até a entrega). Como a aula ensina, o cronograma do TrackFleet não é a barra de Gantt em si: é, ao mesmo tempo, um modelo de como o projeto se comporta se algo mudar, uma comunicação entre os dois GPs e o patrocinador sobre quem faz o quê e quando, e um compromisso --- a linha de base contra a qual o realizado é medido.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Definir Atividades: da EAP ao trabalho executável}
+%======================================================================
+
+\noindent A Estrutura Analítica do Projeto (EAP) do TrackFleet já foi decomposta em pacotes de trabalho no Documento de Escopo (Seção 2.2: 1.1 Gestão do Projeto, 1.2 Requisitos, 1.3 Desenvolvimento, 1.4 Testes e Homologação, 1.5 Treinamento e Encerramento). Aqui, cada pacote relevante à execução é quebrado em atividades no padrão ensinado na aula: \textbf{regra 8/80} (entre 8 e 80 horas de esforço, ou seja, de 1 a 10 dias úteis de trabalho de uma pessoa), \textbf{verbo no início} (ação clara, não um tema genérico) e \textbf{um dono só} por atividade.
+
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{l L l l c}
+\toprule
+\textbf{ID} & \textbf{Atividade} & \textbf{Pacote EAP} & \textbf{Responsável} & \textbf{Duração} \\
+\midrule
+A1  & Levantar requisitos com a transportadora parceira & 1.2.1 & Ambos            & 3 dias \\
+A2  & Mapear a API do provedor de rastreamento piloto & 1.2.1 & Kerlon           & 2 dias \\
+A3  & Especificar requisitos funcionais e não funcionais & 1.2.2 & Enzo             & 3 dias \\
+A4  & Projetar a arquitetura da solução & 1.1.2 & Ambos            & 2 dias \\
+A5  & Modelar o banco de dados (veículos, motoristas, posições, alertas) & 1.3.1 & Enzo             & 3 dias \\
+A6  & Implementar a API de cadastros e vínculos & 1.3.1 & Enzo             & 6 dias \\
+A7  & Implementar a ingestão periódica das posições do provedor & 1.3.1 & Kerlon           & 6 dias \\
+A8  & Implementar os quatro motores do catálogo de alertas & 1.3.2 & Enzo             & 9 dias \\
+A9  & Implementar a autenticação JWT do gestor & 1.3.4 & Kerlon           & 2 dias \\
+A10 & Aplicar as medidas de conformidade com a LGPD & 1.3.4 & Kerlon           & 3 dias \\
+A11 & Construir o mapa (Leaflet) com localização quase em tempo real & 1.3.3 & Kerlon           & 6 dias \\
+A12 & Construir o painel de indicadores (Recharts) & 1.3.3 & Kerlon           & 4 dias \\
+A13 & Construir as telas de cadastro de veículos e motoristas & 1.3.3 & Kerlon           & 3 dias \\
+A14 & Construir os relatórios exportáveis (PDF/XLS) & 1.3.3 & Kerlon           & 4 dias \\
+A15 & Escrever testes automatizados das rotinas críticas & 1.4.1 & Ambos            & 4 dias \\
+A16 & Integrar backend e frontend em ambiente de homologação & 1.4.1 & Ambos            & 3 dias \\
+A17 & Testar com dados reais/simulados do rastreador piloto & 1.4.1 & Ambos            & 3 dias \\
+A18 & Homologar a plataforma com a transportadora piloto & 1.4.2 & Ambos            & 11 dias \\
+A19 & Treinar o gestor piloto & 1.5.1 & Ambos            & 1 dia \\
+A20 & Documentar o projeto e registrar lições aprendidas & 1.5.2 & Ambos            & 3 dias \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent A atividade A18 (piloto) foge da faixa 8/80 de propósito: não é um pacote de esforço contínuo da equipe, e sim uma janela de operação assistida, cuja duração é ditada pelo tempo mínimo de uso real necessário para a transportadora validar os indicadores gerados --- não pelo número de horas que os GPs trabalham nela.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Sequenciar Atividades: dependências}
+%======================================================================
+
+\noindent O Método de Diagrama de Precedência (PDM) liga as atividades por quatro tipos de relação. O TrackFleet usa majoritariamente Término$\to$Início (FS), com alguns pares Início$\to$Início (SS) deliberados para ganhar tempo; não há nenhuma dependência Início$\to$Término (SF) no cronograma, coerente com a raridade desse tipo apontada na aula.
+
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{l L l L}
+\toprule
+\textbf{ID} & \textbf{Predecessora(s)} & \textbf{Tipo} & \textbf{Natureza e observação} \\
+\midrule
+A3  & A1                  & FS & Obrigatória, interna --- não dá para especificar sem ter levantado o requisito. \\
+A4  & A3                  & FS & Obrigatória, interna. \\
+A5  & A4                  & FS & Obrigatória, interna. \\
+A9  & A4                  & SS & Arbitrária, interna --- autenticação começa junto com a modelagem de dados, sem esperar o backend inteiro. \\
+A6  & A5                  & FS & Obrigatória, interna --- precisa do modelo de dados fechado. \\
+A7  & A5, A2              & FS & A5 é obrigatória interna; A2 é \textbf{obrigatória externa} --- a ingestão depende do acesso e da documentação da API do provedor de rastreamento, fora do controle da dupla. \\
+A10 & A9                  & FS & Obrigatória, interna. \\
+A8  & A6, A7               & FS & Obrigatória, interna --- o motor de alertas lê cadastros e posições já ingeridas. \\
+A11 & A6, A7               & FS & Obrigatória, interna --- o mapa depende da API de cadastro e da ingestão de posições. \\
+A13 & A6                  & FS & Obrigatória, interna. \\
+A12 & A8                  & FS & Obrigatória, interna --- o painel exibe alertas pendentes. \\
+A14 & A8                  & FS & Obrigatória, interna --- o relatório de alertas depende do motor pronto. \\
+A15 & A8                  & SS (lead de 6 dias) & Arbitrária, interna --- os testes automatizados começam antes do motor de alertas fechar por completo, para não empurrar tudo para o fim. \\
+A16 & A9, A10, A11, A12, A13, A14 & FS & Obrigatória, interna --- integração só faz sentido com os módulos prontos. \\
+A17 & A16, A15             & FS & Obrigatória, interna. \\
+A18 & A17                  & FS (lag de 2 dias) & Obrigatória, interna --- os 2 dias de lag são o prazo para o patrocinador formalizar o aceite antes de a transportadora começar a usar a plataforma de verdade. \\
+A19 & A18                  & SS & Arbitrária, interna --- o treinamento do gestor começa junto com o piloto. \\
+A20 & A18 (FF), A19 (FS)    & FF / FS & Obrigatória, interna --- a documentação e as lições aprendidas fecham exatamente junto com o encerramento do piloto. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Estimar Durações: técnica por tipo de atividade}
+%======================================================================
+
+\noindent Nem toda atividade é estimada da mesma forma. O TrackFleet combina as quatro técnicas da aula conforme a natureza do trabalho:
+
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Especialista:} atividades pequenas e bem conhecidas da dupla (A9 --- autenticação JWT, A19 --- treinamento) são estimadas por julgamento direto.
+  \item \textbf{Análoga:} A1 (levantamento de requisitos) e A20 (documentação) são estimadas comparando com entregas anteriores parecidas da própria disciplina (Termo de Abertura e Documento de Escopo).
+  \item \textbf{Paramétrica:} A13 (telas de cadastro) e A14 (relatórios) usam uma métrica simples --- número de telas/relatórios do catálogo (Seção 1.6 do Documento de Escopo) multiplicado pelo tempo médio por unidade.
+  \item \textbf{Três pontos (PERT):} reservada para as cinco atividades mais incertas ou mais críticas do projeto, detalhadas abaixo.
+\end{itemize}
+
+\subsection{Estimativa de três pontos das atividades críticas}
+A fórmula da distribuição Beta pondera o cenário mais provável e usa a distância entre o otimista e o pessimista como medida de risco:
+\[
+t_E = \frac{O + 4M + P}{6} \qquad \text{Desvio} \approx \frac{P - O}{6}
+\]
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L c c c c c}
+\toprule
+\textbf{Atividade} & \textbf{O} & \textbf{M} & \textbf{P} & $t_E$ & \textbf{Desvio} \\
+\midrule
+A6 --- API de cadastros e vínculos & 3 & 5 & 9 & 5,3 dias & 1,0 \\
+A7 --- Ingestão de posições do provedor & 3 & 5 & 10 & 5,5 dias & 1,2 \\
+A8 --- Motor de alertas (4 motores) & 5 & 8 & 15 & 8,7 dias & 1,7 \\
+A11 --- Mapa com localização quase em tempo real & 3 & 5 & 9 & 5,3 dias & 1,0 \\
+A18 --- Piloto com a transportadora parceira & 7 & 10 & 15 & 10,3 dias & 1,3 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent A leitura desses números: o motor de alertas (A8) tem o maior desvio (1,7 dia) porque reúne quatro lógicas de disparo diferentes (Seção 1.5 do Documento de Escopo) na mesma atividade --- é o maior risco de estouro do cronograma, e por isso concentra a atenção das solução-chave da Seção 6. Os valores de $t_E$, arredondados para cima, são os que aparecem na tabela de atividades da Seção 1 (A6=6, A7=6, A8=9, A11=6, A18=11 dias) e alimentam o caminho crítico da Seção 4.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Desenvolver o Cronograma: caminho crítico}
+%======================================================================
+
+\noindent O caminho crítico é a sequência mais longa de atividades dependentes: define a menor duração possível do projeto e é onde qualquer atraso vira atraso do projeto inteiro. Somando as durações da Seção 1 segundo as dependências da Seção 2 (dias úteis, contados a partir do início da execução):
+
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=4mm and 5mm,
+  box/.style={draw, rounded corners, align=center, font=\scriptsize, inner sep=3pt, minimum height=9mm, text width=19mm},
+  crit/.style={box, very thick},
+  arr/.style={-{Latex[length=2mm]}}
+]
+\node[crit] (a) {A1+A3+A4+A5\\Requisitos,\\arquitetura\\e modelagem\\11 dias};
+\node[crit, right=of a] (b) {A6\\Cadastros\\API\\6 dias};
+\node[crit, right=of b] (d) {A8\\Motor de\\alertas\\9 dias};
+\node[crit, right=of d] (e) {A12/A14\\Painel e\\relatórios\\4 dias};
+\node[crit, right=of e] (f) {A16\\Integração\\3 dias};
+\node[crit, right=of f] (g) {A17\\Testes com\\dados reais\\3 dias};
+\node[crit, right=of g] (h) {A18\\Piloto\\(+2d lag)\\11 dias};
+\node[box, below=of d] (c) {A7\\Ingestão\\6 dias};
+\node[box, below right=8mm and 5mm of c] (m) {A11/A13\\Mapa e\\cadastro\\6 dias};
+
+\draw[arr] (a) -- (b);
+\draw[arr] (a.south) -- ++(0,-4mm) -| (c.west);
+\draw[arr] (b) -- (d);
+\draw[arr] (d) -- (e);
+\draw[arr] (e) -- (f);
+\draw[arr] (f) -- (g);
+\draw[arr] (g) -- (h);
+\draw[arr] (b.south) |- (m.west);
+\draw[arr] (c) -- (m);
+\draw[arr] (m.east) -| (f.south);
+\end{tikzpicture}
+}
+\end{center}
+
+\noindent\textbf{Caminho crítico:} A1$\to$A3$\to$A4$\to$A5$\to$A6$\to$A8$\to$(A12 ou A14)$\to$A16$\to$A17$\to$A18 = \textbf{49 dias úteis} ($\approx$ 10 semanas). A7 corre em paralelo a A6 e chega no mesmo instante (dia 17) --- as duas são igualmente críticas, sem folga.
+
+\subsection{Folga (float)}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Folga total do ramo Mapa/Cadastro (A11/A13):} termina no dia 23, mas só é consumido pela integração (A16) no dia 30 --- \textbf{7 dias de folga total}. Pode atrasar até esse limite sem atrasar o projeto.
+  \item \textbf{Folga total do ramo Autenticação/LGPD (A9/A10):} termina no dia 13, também só consumido no dia 30 --- \textbf{17 dias de folga}. É a maior folga do cronograma e, por isso, a mais arriscada: como ensina a aula, ``toda folga é gasta'' --- por isso o check-in semanal (Seção 6) cobra status binário dessa frente mesmo com folga grande, para não deixá-la ser consumida pela Lei de Parkinson.
+  \item \textbf{Folga zero (caminho crítico):} A1, A3, A4, A5, A6, A7, A8, A12, A14, A16, A17 e A18 não têm respiro --- atrasar qualquer uma delas em 1 dia atrasa o projeto em 1 dia.
+\end{itemize}
+
+\subsection{Nivelamento de recursos no caminho crítico}
+A6 (cadastros) e A7 (ingestão) caem em paralelo, ambas no caminho crítico, terminando no mesmo dia. Se as duas fossem atribuídas à mesma pessoa, ela seria o ``único especialista em todo caminho crítico'' --- exatamente a pegadinha de recurso superlotado da aula. Por isso A6 é do Enzo e A7 é do Kerlon: o paralelismo do diagrama só é real se os dois donos forem pessoas diferentes. Já A11 e A13, ambas do Kerlon, cabem dentro da folga de 7 dias do ramo Mapa/Cadastro mesmo sendo feitas em sequência por uma única pessoa --- não há necessidade de dividir esse par entre os dois GPs.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Linha de Base, Calendário e Buffer do Projeto}
+%======================================================================
+
+\subsection{Calendário por semana}
+Execução iniciando na semana de 31/08 (semana seguinte a esta aula), em blocos de 5 dias úteis:
+
+\begin{center}
+\scriptsize
+\begin{tabularx}{\textwidth}{p{3.5cm}*{10}{C}}
+\toprule
+\textbf{Pacote} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \textbf{S5} & \textbf{S6} & \textbf{S7} & \textbf{S8} & \textbf{S9} & \textbf{S10} \\
+\midrule
+Requisitos e arquitetura (A1--A5) & X & X & X &  &  &  &  &  &  &  \\
+Autenticação e LGPD (A9, A10) & & X & X &  &  &  &  &  &  &  \\
+Backend: cadastros $\parallel$ ingestão (A6, A7) & & & X & X &  &  &  &  &  &  \\
+Frontend: mapa e cadastro (A11, A13) & & & & X & X &  &  &  &  &  \\
+Motor de alertas (A8) & & & & X & X & X &  &  &  &  \\
+Testes automatizados (A15) & & & & & X & X &  &  &  &  \\
+Frontend: painel e relatórios (A12, A14) & & & & & & X &  &  &  &  \\
+Integração backend/frontend (A16) & & & & & & & X &  &  &  \\
+Testes com dados reais (A17) & & & & & & & X & X &  &  \\
+Piloto com a transportadora (A18) & & & & & & & & X & X & X \\
+Treinamento do gestor piloto (A19) & & & & & & & & X &  &  \\
+Documentação e encerramento (A20) & & & & & & & &  &  & X \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent A semana 10 encerra por volta de 02/11. O objetivo do termo de abertura é lançar a plataforma ``até o fim do semestre letivo'' (dezembro); da semana 10 até o encerramento do semestre sobram cerca de 5 a 6 semanas.
+
+\subsection{Buffer do projeto (Corrente Crítica)}
+Seguindo a solução-chave nº1 da aula, o TrackFleet não infla cada atividade individualmente com uma gordura ``por segurança''. As estimativas da Seção 3 já são dadas em faixa (três pontos), sem colchão escondido, e a margem de 5 a 6 semanas entre o fim da Semana 10 e o fim do semestre é o \textbf{buffer único e visível do projeto} --- agregado no final, não escondido em cada tarefa. Consumir esse buffer não é ``atraso'': é usar exatamente a reserva planejada. Só é motivo de escalonamento ao patrocinador (conforme o Documento de Governança) se o próprio buffer estiver perto de se esgotar.
+
+\subsection{Linha de base e re-baseline}
+A linha de base do cronograma --- as datas deste documento --- é aprovada pelo patrocinador (Diretoria da transportadora parceira), na mesma lógica de aprovação da linha de base de escopo (Documento de Escopo, Seção 2.6). Um novo baseline só é feito após uma mudança formal de escopo ou prazo escalada ao patrocinador; nunca para ``esconder'' um atraso que ainda cabe dentro do buffer.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Controlar o Cronograma}
+%======================================================================
+
+\subsection{Validar $\times$ Controlar}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Validar o cronograma} --- aceite formal, externo: o patrocinador aprova a linha de base e qualquer re-baseline.
+  \item \textbf{Controlar o cronograma} --- verificação interna, contínua: os dois GPs comparam o realizado contra a linha de base a cada check-in (10 minutos, cadência definida no Documento de Governança) e registram o status binário (pronto/não pronto) de cada atividade em andamento.
+\end{itemize}
+
+\subsection{Indicadores de Cronograma}
+\begin{center}
+\begin{tabularx}{\textwidth}{L L l}
+\toprule
+\textbf{Indicador} & \textbf{Fórmula} & \textbf{Leitura} \\
+\midrule
+Índice de Desempenho de Prazo & Duração planejada concluída até a data de corte $\div$ Duração planejada total até essa data $\times$ 100 & Maior é melhor \\
+Tendência da folga do caminho crítico & Folga total medida a cada check-in, comparada ao check-in anterior & Estável ou crescente é melhor; caindo antes do previsto é o alarme antecipado \\
+Aderência ao caminho crítico & Atividades críticas concluídas na data planejada $\div$ Total de atividades críticas $\times$ 100 & Maior é melhor \\
+Consumo do buffer do projeto & Dias do buffer já utilizados $\div$ Dias totais do buffer $\times$ 100 & Menor, na mesma proporção do avanço do projeto, é melhor \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Esses indicadores são acompanhados no mesmo check-in semanal, com foco no caminho crítico primeiro --- é lá que qualquer atraso vira atraso do projeto inteiro.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Prevenção das Armadilhas do Cronograma}
+%======================================================================
+
+\noindent As pegadinhas da aula não estão nos números, estão no comportamento da dupla diante do prazo. Cada uma tem uma decisão concreta no TrackFleet:
+
+\begin{itemize}[itemsep=5pt]
+  \item \textbf{Lei de Parkinson} (o trabalho se expande até preencher o tempo disponível): ciclos de entrega de 1 semana, com status binário --- pronto (integrado e testado) ou não pronto, sem ``99\% pronto''. A folga não fica dentro de cada atividade; vai para o buffer único do projeto (Seção 5.2).
+  \item \textbf{Síndrome do Estudante} (começar tudo na última hora): o check-in semanal de 10 minutos (Governança) cobra status de toda atividade em andamento, não só das que vencem naquela semana --- o desvio aparece na semana 2 do atraso, não na véspera da entrega.
+  \item \textbf{Colchões escondidos} (padding/sandbagging): as estimativas das atividades críticas são dadas em três pontos (Seção 3.1), nunca em ponto único ``por segurança''; a reserva de risco fica agregada e visível no buffer do projeto (Seção 5.2), não escondida em cada A6, A7 ou A8.
+  \item \textbf{Falácia do Planejamento} (otimismo sistemático ao estimar): as estimativas ancoram na ``visão de fora'' --- comparadas ao tempo real que a dupla levou no Termo de Abertura e no Documento de Escopo (técnica análoga, Seção 3) --- em vez de assumir que ``desta vez vai dar tudo certo''.
+  \item \textbf{Síndrome dos 90\%} (os 10\% finais consomem os outros 90\% do tempo): a Definição de Pronto do Documento de Escopo (Seção 3.3) já exige integração e teste com dados reais do rastreador antes de qualquer atividade ser considerada concluída --- ``compila local'' não conta como pronto.
+  \item \textbf{Multitarefa e recursos superlotados}: cada atividade tem um único responsável nomeado (Seção 1); o par crítico A6/A7 foi deliberadamente dividido entre Enzo e Kerlon (Seção 4.2) para que nenhum dos dois seja o gargalo do caminho crítico.
+\end{itemize}
+
+\end{document}
