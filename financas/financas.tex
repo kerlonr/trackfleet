@@ -1,0 +1,371 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Finanças}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE FINANÇAS DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Finanças\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 03/09
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent No PMBOK\textregistered\ 8, o domínio de desempenho Finanças cobre quatro processos: \textbf{Planejar o Gerenciamento Financeiro} (o manual de regras do dinheiro do projeto), \textbf{Estimar Custos} (quanto vai custar cada pacote de trabalho), \textbf{Desenvolver o Orçamento} (agregar as estimativas e as reservas em uma linha de base autorizada) e \textbf{Monitorar e Controlar as Finanças} (comparar o realizado com a linha de base e prever onde o projeto vai terminar). A virada de mentalidade da aula guia todo este documento: ficar dentro do orçamento é um resultado de controle; entregar o valor prometido é um resultado estratégico. Por isso o documento não para na planilha de custos --- ele fecha justificando, com ROI, VPL, TIR e payback, por que o dinheiro gasto no TrackFleet produz o resultado prometido.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Planejar o Gerenciamento Financeiro: o manual de regras}
+%======================================================================
+
+\noindent\textbf{\large O manual de regras do dinheiro do TrackFleet}
+
+\vspace{1mm}
+\noindent Antes de estimar qualquer valor, este processo define como receitas e despesas do TrackFleet serão estimadas, orçadas, monitoradas e controladas. Sem ele, o resto é improviso. As entradas deste plano são o Termo de Abertura, o Documento de Escopo e o Documento de Governança já produzidos; a saída é o conjunto de regras abaixo.
+
+\subsection{Bases de referência}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Moeda:} real brasileiro (R\$); todos os valores deste documento estão em R\$ correntes.
+  \item \textbf{Custo-hora de referência:} R\$ 50,00 por hora de trabalho de GP, usado como custo de oportunidade das horas dos dois integrantes --- o projeto não paga salário, mas contabiliza o tempo pelo valor de mercado de uma hora de desenvolvimento júnior, para que o custo real do esforço fique visível e não pareça ``de graça''.
+  \item \textbf{Dia útil de trabalho:} 6 horas produtivas; logo, 1 dia-pessoa do cronograma equivale a R\$ 300,00. Essa é a ponte entre o Documento de Cronograma (durações em dias) e este documento (custos em reais).
+  \item \textbf{Cadência de medição:} as finanças são medidas no mesmo check-in semanal já definido na Governança e no Cronograma --- não há reunião financeira à parte.
+\end{itemize}
+
+\subsection{Fontes de financiamento}
+Cada fonte traz regras e nível de rigor diferentes. O TrackFleet combina duas das fontes vistas na aula e descarta as demais:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Orçamento interno (fonte principal):} as horas de trabalho dos dois GPs, no contexto acadêmico da disciplina. É recurso próprio da dupla, sem desembolso de caixa.
+  \item \textbf{Contrato/patrocínio de cliente (fonte secundária):} a transportadora parceira (patrocinador) custeia a infraestrutura do piloto --- assinatura da API do provedor de rastreamento, hospedagem e domínio.
+  \item \textbf{Subvenções/grants e crowdfunding:} não se aplicam a este projeto.
+\end{itemize}
+\noindent Como ensina a aula, a fonte define o nível de rigor do controle: por ser financiamento interno e um patrocínio leve de parceiro, a governança financeira é leve (coerente com o modelo híbrido da Governança). A única exceção é a LGPD, que impõe controle formal de tratamento de dados independentemente da fonte.
+
+\subsection{Classificação CapEx {\texttimes} OpEx}
+Classificar cada custo na categoria certa é decidido aqui, no planejamento --- classificar errado, como alerta a aula, trava o projeto porque os caminhos de aprovação são diferentes.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{l L L}
+\toprule
+\textbf{Categoria} & \textbf{O que é no TrackFleet} & \textbf{Itens} \\
+\midrule
+CapEx --- constrói o ativo & Trabalho que cria o ativo de software (a plataforma), gasto de uma vez para gerar um bem duradouro & Horas de desenvolvimento dos GPs, projeto da arquitetura e configuração inicial da infraestrutura \\
+OpEx --- roda o dia a dia & Custos contínuos de manter a plataforma no ar durante o projeto e o piloto & Assinatura mensal da API do provedor, hospedagem (VPS/nuvem), domínio anual, certificado TLS (gratuito) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Um ponto concreto liga esta classificação à restrição do Termo de Abertura: o TrackFleet tem \textbf{orçamento zero para hardware próprio}. Na prática, o projeto elimina de propósito o maior CapEx de um sistema de rastreamento --- comprar e instalar rastreadores --- integrando-se por API a dispositivos de terceiros. Esse custo vira OpEx (assinatura da API), muito menor e sem imobilização de capital.
+
+\subsection{Governança financeira e tolerâncias}
+Quem aprova o quê segue a matriz RACI da Governança, agora aplicada ao dinheiro:
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Gasto do dia a dia (dentro da linha de base):} decidido pelos dois GPs por consenso, sem subir ao patrocinador.
+  \item \textbf{Reserva de contingência:} está no controle dos GPs (é para riscos já conhecidos), e seu uso é registrado no log de decisões do projeto.
+  \item \textbf{Reserva de gerenciamento:} só é liberada pelo patrocinador (Diretoria da transportadora parceira) --- coerente com a aula, que deixa essa reserva com a alta gerência, e com o escalonamento já definido na Governança.
+\end{itemize}
+
+\noindent As tolerâncias abaixo são os gatilhos que transformam um número em uma ação --- porque, como diz a aula, relatório colorido parado não é controle:
+\begin{center}
+\begin{tabularx}{\textwidth}{L L}
+\toprule
+\textbf{Gatilho} & \textbf{Ação} \\
+\midrule
+CPI ou SPI abaixo de 0,90 em um check-in & Ação corretiva imediata dos GPs, focada primeiro no caminho crítico \\
+Projeção de término (EAC) que ameace consumir a reserva de gerenciamento & Revisão formal e alerta ao patrocinador; acima da reserva, escalonamento e re-baseline \\
+Consumo da reserva de contingência acima do avanço físico do projeto & Reavaliação das estimativas restantes no check-in seguinte \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Estimar Custos: quanto vai custar cada pacote}
+%======================================================================
+
+\noindent Estimar custos é uma aproximação periódica do custo dos recursos necessários ao trabalho. A base é a EAP do Documento de Escopo (Seção 2.2) e as durações do Documento de Cronograma. Como na aula, nem todo pacote é estimado da mesma forma: a técnica é escolhida pela natureza do trabalho.
+
+\subsection{Técnica por pacote}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Análoga:} pacotes parecidos com entregas anteriores da própria dupla (gestão do projeto, requisitos, encerramento) são estimados por comparação --- a mesma ``visão de fora'' usada no Cronograma.
+  \item \textbf{Paramétrica:} o Frontend usa uma métrica simples --- número de telas e relatórios do catálogo (Documento de Escopo, Seções 1.3 e 1.6) multiplicado pelo tempo médio por unidade.
+  \item \textbf{Bottom-up:} pacotes pequenos e bem conhecidos (autenticação e LGPD) são estimados somando suas atividades diretamente.
+  \item \textbf{Três pontos (PERT):} reservada aos três pacotes mais incertos ou mais arriscados, detalhada na Seção 2.3.
+\end{itemize}
+
+\subsection{Estimativa bottom-up por pacote}
+Cada pacote é convertido em dias-pessoa e, pelo custo-hora de referência (R\$ 300,00/dia-pessoa), em reais.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{l L c c r}
+\toprule
+\textbf{Pacote EAP} & \textbf{Conteúdo} & \textbf{Técnica} & \textbf{Dias-pessoa} & \textbf{Custo (R\$)} \\
+\midrule
+1.1 Gestão do Projeto & Termo, governança, arquitetura e acompanhamento & Análoga & 12 & 3.600 \\
+1.2 Requisitos & Entrevistas e especificação & Análoga & 10 & 3.000 \\
+1.3.1 Backend, API e ingestão & API própria e ingestão das posições & Três pontos & 18,5 & 5.550 \\
+1.3.2 Motor de alertas & Os quatro motores do catálogo & Três pontos & 9,5 & 2.850 \\
+1.3.3 Frontend & Mapa, painel, cadastros e relatórios & Paramétrica & 17 & 5.100 \\
+1.3.4 Autenticação e LGPD & Perfil de gestor e conformidade & Bottom-up & 5 & 1.500 \\
+1.4 Testes e Homologação & Testes e piloto com a transportadora & Três pontos & 14,67 & 4.400 \\
+1.5 Treinamento e Encerramento & Treinamento e lições aprendidas & Análoga & 4 & 1.200 \\
+\midrule
+\textbf{Subtotal mão de obra (CapEx)} & & & \textbf{90,67} & \textbf{27.200} \\
+Infraestrutura do período (OpEx) & API, hospedagem, domínio, TLS & Bottom-up & --- & 700 \\
+\midrule
+\textbf{Total das estimativas} & & & & \textbf{27.900} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Estimativa de três pontos dos pacotes de risco}
+Os três pacotes mais incertos ganham a estimativa de três pontos, pela mesma fórmula da distribuição Beta usada no Cronograma --- aqui aplicada a reais, não a dias:
+\[
+C_E = \frac{O + 4M + P}{6}
+\]
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L r r r r}
+\toprule
+\textbf{Pacote} & \textbf{Otimista} & \textbf{Mais provável} & \textbf{Pessimista} & $C_E$ \\
+\midrule
+1.3.1 Backend, API e ingestão & 3.600 & 5.400 & 8.100 & 5.550 \\
+1.3.2 Motor de alertas & 1.800 & 2.700 & 4.500 & 2.850 \\
+1.4 Testes e Homologação & 3.000 & 4.200 & 6.600 & 4.400 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent A leitura desses números justifica a reserva de contingência da Seção 3: o Backend (1.3.1) e o Motor de alertas (1.3.2) carregam a maior distância entre otimista e pessimista, pelas mesmas razões apontadas no Cronograma --- o Backend depende de uma API externa fora do controle da dupla, e o Motor de alertas reúne quatro lógicas de disparo diferentes na mesma frente. É por causa dessa incerteza medida que a reserva de contingência não é um palpite, e sim dimensionada.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Desenvolver o Orçamento: da estimativa à linha de base}
+%======================================================================
+
+\noindent Aqui as estimativas individuais são agregadas e as reservas são adicionadas, formando a linha de base de custos autorizada. Este é o ponto onde mais se erra na prova, como diz a aula: orçamento não é a mesma coisa que linha de base, e as duas reservas entram em lugares diferentes.
+
+\subsection{As duas reservas}
+\begin{center}
+\begin{tabularx}{\textwidth}{L L L}
+\toprule
+\textbf{Reserva} & \textbf{Cobre} & \textbf{Onde fica} \\
+\midrule
+Contingência --- riscos conhecidos & Estouros previsíveis das frentes de risco (Backend/API e Motor de alertas), medidos na Seção 2.3 & DENTRO da linha de base; já entra no orçamento inicial e é controlada pelos GPs \\
+Gerenciamento --- riscos desconhecidos & Trabalho imprevisto que ninguém mapeou & FORA da linha de base; entra no orçamento total por cima dela e só é liberada pelo patrocinador \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent O mnemônico da aula vale para o TrackFleet: \textbf{con}tingência para o \textbf{con}hecido.
+
+\subsection{Composição do orçamento}
+\begin{center}
+\begin{tabularx}{\textwidth}{L r}
+\toprule
+\textbf{Componente} & \textbf{Valor (R\$)} \\
+\midrule
+Estimativas dos pacotes (mão de obra) & 27.200 \\
+Infraestrutura do período (OpEx) & 700 \\
+\textbf{Subtotal das estimativas} & \textbf{27.900} \\
+(+) Reserva de contingência (10\% das estimativas) & 2.790 \\
+\textbf{Linha de base de custos (BAC)} & \textbf{30.690} \\
+(+) Reserva de gerenciamento (5\% da linha de base) & 1.535 \\
+\textbf{Orçamento total do projeto} & \textbf{32.225} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent A linha de base de custos (BAC) é R\$ 30.690: é contra ela que o realizado será medido na Seção 4. O orçamento total (R\$ 32.225) é maior porque inclui a reserva de gerenciamento --- que existe, mas não faz parte da base de comparação. A linha de base é aprovada pelo patrocinador, na mesma lógica das linhas de base de escopo e de cronograma já aprovadas.
+
+\subsection{Orçamento no tempo: a curva S}
+A linha de base não é um número só; é distribuída no tempo sobre as 10 semanas do Cronograma. O acumulado tem a forma de ``S'' prevista na aula: gasto lento no arranque (poucas atividades caras), íngreme no miolo (pico de desenvolvimento) e achatado no encerramento.
+
+\begin{center}
+\footnotesize
+\begin{tabularx}{\textwidth}{l *{10}{C}}
+\toprule
+\textbf{Semana} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \textbf{S5} & \textbf{S6} & \textbf{S7} & \textbf{S8} & \textbf{S9} & \textbf{S10} \\
+\midrule
+\% acumulado & 5 & 12 & 22 & 36 & 50 & 60 & 74 & 86 & 95 & 100 \\
+Acumulado (R\$) & 1.535 & 3.683 & 6.752 & 11.048 & 15.345 & 18.414 & 22.711 & 26.393 & 29.156 & 30.690 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Essa curva é o Valor Planejado (PV) ao longo do tempo: em cada semana ela diz quanto do orçamento o projeto deveria ter consumido se seguir o plano. É a régua usada no exemplo resolvido da próxima seção.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Monitorar e Controlar as Finanças: o valor agregado}
+%======================================================================
+
+\noindent Este processo supervisiona a saúde financeira: acompanha gastos, ajusta previsões e aplica correções. A ferramenta central é o Gerenciamento do Valor Agregado (EVM), começado desde o dia 1 --- porque, como avisa a aula, fazer EVM só aos 60\% do projeto é inútil: a janela de intervenção já fechou.
+
+\subsection{Os quatro valores-base}
+\begin{center}
+\begin{tabularx}{\textwidth}{l L L}
+\toprule
+\textbf{Sigla} & \textbf{Nome} & \textbf{O que é no TrackFleet} \\
+\midrule
+BAC & Orçamento no término & A linha de base de custos: R\$ 30.690 \\
+PV & Valor Planejado & Custo orçado do trabalho programado até a data (a curva S da Seção 3.3) \\
+EV & Valor Agregado & Custo orçado do trabalho realmente concluído: BAC $\times$ \% concluído \\
+AC & Custo Real & O que de fato saiu do bolso para entregar esse trabalho \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Variações, índices e previsões}
+\begin{center}
+\begin{tabularx}{\textwidth}{L L L}
+\toprule
+\textbf{Indicador} & \textbf{Fórmula} & \textbf{Leitura} \\
+\midrule
+CV --- Variação de Custo & $EV - AC$ & Positivo: abaixo do orçamento. Negativo: acima \\
+SV --- Variação de Prazo & $EV - PV$ & Positivo: adiantado. Negativo: atrasado \\
+CPI --- Índice de Custo & $EV \div AC$ & Acima de 1,0 é bom; abaixo é ruim \\
+SPI --- Índice de Prazo & $EV \div PV$ & Acima de 1,0 é bom; abaixo é ruim \\
+EAC --- Estimativa no Término & $BAC \div CPI$ & Custo final previsto se a tendência atual continuar \\
+ETC --- Estimativa para Terminar & $EAC - AC$ & Quanto ainda falta gastar \\
+VAC --- Variação no Término & $BAC - EAC$ & Negativo: projeto termina acima da linha de base \\
+TCPI --- Índice para Terminar & $(BAC - EV) \div (BAC - AC)$ & Eficiência exigida do trabalho restante; acima de 1,0 é difícil \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Duas armadilhas da aula ficam registradas aqui: termina em ``Variação'' subtrai, termina em ``Índice'' divide; e SV/SPI medem prazo, mas em unidades de dinheiro (o valor em R\$ do trabalho), nunca em dias.
+
+\subsection{Exemplo resolvido: check-in do fim da Semana 6}
+Cenário de acompanhamento no corte da Semana 6, quando a curva S prevê 60\% do orçamento consumido. Suponha que, na medição, o trabalho realmente concluído seja 55\% e o custo real acumulado seja R\$ 17.600:
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L L L}
+\toprule
+\textbf{Valor} & \textbf{Cálculo} & \textbf{Resultado} \\
+\midrule
+PV & $30.690 \times 60\%$ & R\$ 18.414 \\
+EV & $30.690 \times 55\%$ & R\$ 16.880 \\
+AC & medido no check-in & R\$ 17.600 \\
+CV & $16.880 - 17.600$ & $-$R\$ 720 (acima do orçamento) \\
+SV & $16.880 - 18.414$ & $-$R\$ 1.534 (atrasado) \\
+CPI & $16.880 \div 17.600$ & 0,96 \\
+SPI & $16.880 \div 18.414$ & 0,92 \\
+EAC & $30.690 \div 0,96$ & R\$ 32.002 \\
+ETC & $32.002 - 17.600$ & R\$ 14.402 \\
+VAC & $30.690 - 32.002$ & $-$R\$ 1.312 \\
+TCPI & $(30.690 - 16.880) \div (30.690 - 17.600)$ & 1,06 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent \textbf{Veredito e decisão:} no ritmo atual o TrackFleet está levemente acima do orçamento (CPI 0,96) e atrasado (SPI 0,92), e a projeção de término (EAC R\$ 32.002) fura a linha de base em R\$ 1.312 --- consumindo quase toda a reserva de gerenciamento (R\$ 1.535). Pela tolerância da Seção 1.4, isso ainda não estoura o orçamento total, então não é escalonamento imediato, mas dispara revisão formal e coloca o patrocinador em alerta. A ação corretiva se concentra no maior risco do caminho crítico, o Motor de alertas (atividade A8 do Cronograma). O TCPI de 1,06 diz o preço disso: o trabalho restante precisa ser feito cerca de 6\% mais eficiente do que o planejado --- exigente, mas possível. E, seguindo a dica do professor, a decisão olha a tendência do CPI ao longo dos check-ins, não a foto de uma semana isolada.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{O Valor: por que o investimento se justifica}
+%======================================================================
+
+\noindent Cumprir o orçamento não é sucesso financeiro. Esta seção responde à pergunta executiva da aula --- ``o dinheiro gasto produziu o resultado prometido?'' --- medindo o retorno do TrackFleet para o patrocinador. O valor, como reconhece o padrão, não é só financeiro: é tratado nas duas dimensões.
+
+\subsection{Valor tangível: o business case}
+As premissas abaixo são estimativas de business case do ponto de vista da transportadora parceira; são deliberadamente conservadoras e assumidamente frágeis (por isso a análise de sensibilidade adiante). Elas não se confundem com o ``indicador de economia em reais'' que o Documento de Escopo (Seção 1.7) deixou de fora do produto --- aqui o cálculo é do projeto, não uma tela da plataforma.
+
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Investimento inicial:} orçamento total do projeto, R\$ 32.225.
+  \item \textbf{Ganho anual estimado:} R\$ 24.000/ano, pela redução de manutenção corretiva, menos multas por documento vencido e menor uso indevido dos veículos.
+  \item \textbf{Custo operacional anual (pós-projeto):} R\$ 3.600/ano de OpEx (API, hospedagem e domínio).
+  \item \textbf{Ganho líquido anual:} R\$ 24.000 $-$ R\$ 3.600 $=$ R\$ 20.400/ano.
+  \item \textbf{Taxa de desconto (custo de capital):} 12\% ao ano.
+\end{itemize}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{L L L}
+\toprule
+\textbf{Métrica} & \textbf{Cálculo} & \textbf{Resultado} \\
+\midrule
+Payback & $32.225 \div 20.400$ & $\approx$ 1,6 ano ($\approx$ 19 meses) \\
+VPL (3 anos) & $-32.225 + \sum_{t=1}^{3} \dfrac{20.400}{1{,}12^{t}}$ & $\approx +$R\$ 16.772 \\
+TIR (3 anos) & taxa que zera o VPL & $\approx$ 40\% ao ano \\
+ROI (3 anos) & $(3 \times 20.400 - 32.225) \div 32.225$ & $\approx$ 90\% \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Leitura: o VPL é positivo (o projeto cria valor mesmo descontando o dinheiro no tempo), a TIR de $\approx$40\% supera com folga o custo de capital de 12\% (logo, aprova-se o investimento) e o payback fica abaixo de dois anos. \textbf{Sensibilidade:} mesmo que o ganho anual seja 30\% menor que o previsto (R\$ 16.800 em vez de R\$ 24.000), o ganho líquido cai para R\$ 13.200/ano, o payback estica para $\approx$ 2,4 anos e o VPL em 3 anos ainda permanece positivo --- a decisão de investir se sustenta mesmo no cenário pessimista.
+
+\subsection{Valor intangível}
+Nem todo valor cabe na planilha. O TrackFleet entrega também:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Conformidade regulatória:} adequação à LGPD no tratamento de dados de localização e de motoristas --- valor obrigatório, não negociável (Documento de Escopo, VBS).
+  \item \textbf{Segurança:} maior proteção de veículos e motoristas com o monitoramento e os alertas.
+  \item \textbf{Decisão baseada em dados:} gestão da frota apoiada em dados reais, não em achismo --- o valor esperado do Termo de Abertura.
+  \item \textbf{Satisfação do cliente:} uma solução acessível para um segmento hoje mal atendido pelo custo elevado das plataformas corporativas.
+  \item \textbf{Aprendizado da dupla:} domínio prático do PMBOK\textregistered\ 8 aplicado de ponta a ponta, valor acadêmico do projeto.
+\end{itemize}
+
+\subsection{Alinhamento com o valor do produto}
+O business case reforça a priorização já registrada na Value Breakdown Structure do Documento de Escopo (Seção 1.9): Monitoramento em tempo real (E1) e Alertas automáticos (E2), que concentram 70\% do valor, são exatamente os entregáveis que produzem a economia de manutenção corretiva e de uso indevido usada no cálculo acima. Se o prazo do semestre apertar, cortar valor de relatórios avançados preserva o retorno; cortar E1 ou E2 destruiria o business case.
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+%======================================================================
+\section{Armadilhas Financeiras e como o TrackFleet as evita}
+%======================================================================
+
+\noindent As pegadinhas da aula não estão nos números, e sim no comportamento diante deles. Cada uma tem uma decisão concreta no projeto:
+
+\begin{itemize}[itemsep=5pt]
+  \item \textbf{Confundir linha de base com orçamento:} a reserva de gerenciamento (R\$ 1.535) fica de fora da linha de base (R\$ 30.690) e só entra no orçamento total (R\$ 32.225). A comparação do EVM é sempre contra a linha de base, nunca contra o orçamento total.
+  \item \textbf{Trocar índice por variação:} no manual de regras (Seção 1) ficou registrado que termina em ``Índice'' divide e termina em ``Variação'' subtrai --- e que SV/SPI medem prazo em reais, não em dias.
+  \item \textbf{Inverter a leitura do TCPI:} para CPI e SPI, abaixo de 1,0 é ruim; para o TCPI, o oposto --- acima de 1,0 significa que o trabalho restante precisa ser mais eficiente, como no exemplo da Seção 4.3 (1,06).
+  \item \textbf{Achar que orçamento cumprido é sucesso:} por isso este documento não para no controle de custos --- a Seção 5 mede o valor entregue (ROI, VPL, TIR, payback), que é o resultado estratégico.
+  \item \textbf{Começar o EVM tarde demais:} a medição começa no dia 1, no mesmo check-in semanal, para que o desvio apareça enquanto a janela de intervenção ainda está aberta.
+  \item \textbf{Relatório sem narrativa:} cada indicador do exemplo resolvido vem com a decisão que ele dispara (revisão, ação corretiva, alerta ao patrocinador) --- dado sem decisão não é controle.
+  \item \textbf{Escolher o EAC errado:} como o desvio do TrackFleet é uma variação típica (tendência de custo), o EAC usa $BAC \div CPI$. A fórmula pessimista $AC + (BAC - EV)$ ficaria reservada a um evento único e isolado, que não é o caso.
+\end{itemize}
+
+\end{document}
