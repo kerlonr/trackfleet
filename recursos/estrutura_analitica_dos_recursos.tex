@@ -1,0 +1,71 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Estrutura Analítica dos Recursos}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE RECURSOS DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Recursos\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 03/09
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Estrutura Analítica dos Recursos (EAR)}
+
+\vspace{1mm}
+\noindent Organiza e classifica os recursos de forma hierárquica, facilitando a estimativa, aquisição e o monitoramento — evidenciando que recursos não são apenas pessoas, mas também serviços e ferramentas críticas.
+
+\section{Composição da EAR}
+
+\begin{itemize}[itemsep=4pt, label=\textbf{--}]
+    \item \textbf{1. Recursos do Projeto}
+    \begin{itemize}[itemsep=2pt, label=$\circ$]
+        \item \textbf{1.1 Equipe (Recursos Humanos)}
+        \begin{itemize}[itemsep=1pt, label=\tiny$\blacksquare$]
+            \item \textbf{1.1.1 Gestão e Coordenação:} GPs em modelo de co-gestão (Enzo e Kerlon).
+            \item \textbf{1.1.2 Desenvolvimento e QA:} Papéis técnicos acumulados pelos próprios GPs para construção do dashboard e integrações.
+        \end{itemize}
+
+        \item \textbf{1.2 Equipamentos (Recursos Físicos Locais)}
+        \begin{itemize}[itemsep=1pt, label=\tiny$\blacksquare$]
+            \item \textbf{1.2.1 Estações de Trabalho:} Notebooks pessoais dos desenvolvedores.
+            \item \textbf{1.2.2 Dispositivos de Rastreamento:} Aparelhos GPS operacionais cedidos/utilizados pelas transportadoras parceiras (premissa de custo zero para o projeto).
+        \end{itemize}
+
+        \item \textbf{1.3 Software e Serviços (Recursos Físicos / Virtuais)}
+        \begin{itemize}[itemsep=1pt, label=\tiny$\blacksquare$]
+            \item \textbf{1.3.1 Integração de Mapas:} Consumo de APIs de mapeamento (ex: Google Maps API / Mapbox). Requer monitoramento contínuo para evitar custos excedentes.
+            \item \textbf{1.3.2 Infraestrutura e Nuvem:} Servidores para hospedagem da aplicação, banco de dados gerenciado em ambiente cloud (AWS / GCP).
+            \item \textbf{1.3.3 Licenças de Ferramentas:} Repositórios de código (GitHub), ferramentas de IDE e comunicação.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section{Estratégia de Controle (Monitoramento)}
+Um controle de consumo (histograma adaptado) será aplicado principalmente ao ramo \textbf{1.3 (Software e Serviços)}, visando garantir que o limite do "orçamento zero / free-tier" não seja ultrapassado. As cotas das APIs de rastreamento atuarão como gargalos do projeto e orientarão decisões arquiteturais.
+
+\end{document}

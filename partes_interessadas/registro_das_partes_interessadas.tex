@@ -1,0 +1,73 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Registro das Partes Interessadas}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE PARTES INTERESSADAS DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Partes Interessadas\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 27/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Registro das Partes Interessadas}
+
+\vspace{1mm}
+\noindent O registro identifica e analisa os indivíduos e organizações que podem influenciar ou ser impactados pelo projeto, definindo seus interesses, nível de poder e a estratégia inicial de classificação.
+
+\section{Mapeamento e Classificação}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{} l L L l l @{}}
+\toprule
+\textbf{Parte Interessada} & \textbf{Papel e Identificação} & \textbf{Interesses e Expectativas} & \textbf{Poder/Interesse} & \textbf{Estratégia} \\
+\midrule
+\textbf{Diretoria da Transportadora} & Patrocinador (interno). Aprova recursos, mudanças e encerramento. & Plataforma operante até o fim do semestre, reduzindo custos operacionais e multas. & Alto / Alto & \textbf{Gerenciar de perto} \\
+\addlinespace
+\textbf{Enzo e Kerlon} & GPs e Equipe de Desenvolvimento. & Concluir o projeto acadêmico com sucesso, mantendo escopo exequível e qualidade técnica. & Alto / Alto & \textbf{Gerenciar de perto} \\
+\addlinespace
+\textbf{Gestores de Frota} & Usuários finais (externos/clientes). Operam o dashboard no dia a dia. & Sistema fácil de usar, dados em tempo real confiáveis e geração de relatórios úteis. & Baixo / Alto & \textbf{Manter informado} \\
+\addlinespace
+\textbf{Motoristas} & Usuários impactados. Conduzem os veículos rastreados. & Preocupação com privacidade e receio de uso punitivo do rastreamento. & Baixo / Alto & \textbf{Manter informado} \\
+\addlinespace
+\textbf{Provedores de Hardware e APIs} & Fornecedores (Google Maps, fabricantes de rastreadores, AWS). & Uso correto dos serviços dentro das cotas e do faturamento das APIs contratadas. & Baixo / Baixo & \textbf{Monitorar} \\
+\addlinespace
+\textbf{Órgão Regulador (ANPD)} & Entidade externa. Fiscaliza conformidade com a LGPD. & Garantia de privacidade e proteção dos dados de localização dos motoristas. & Alto / Baixo & \textbf{Manter satisfeito} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Análise de Prioridade (Modelo de Saliência)}
+
+\begin{itemize}[itemsep=4pt]
+    \item \textbf{Prioridade Máxima (Saliência Alta):} A \textbf{Diretoria da Transportadora} detém \textit{poder} (orçamento e aprovação), \textit{legitimidade} (é dona do negócio) e \textit{urgência} (precisa dos resultados financeiros em curto prazo). Os \textbf{GPs} também se enquadram no centro.
+    \item \textbf{Prioridade Média (Legitimidade e Urgência):} \textbf{Gestores de Frota} e \textbf{Motoristas} possuem forte legitimidade e urgência nas suas expectativas, mas não detêm poder direto sobre a execução do projeto.
+    \item \textbf{Prioridade de Conformidade (Poder e Legitimidade):} A \textbf{ANPD} (via diretrizes LGPD) possui grande poder de veto legal e legitimidade inquestionável, porém baixa urgência no dia a dia do projeto (atuando como restrição).
+\end{itemize}
+
+\end{document}

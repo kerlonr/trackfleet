@@ -1,0 +1,68 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Plano de Comunicações}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE PARTES INTERESSADAS DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Partes Interessadas\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 27/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Plano de Comunicações}
+
+\vspace{1mm}
+\noindent Documento operacional que define o fluxo de informações do projeto: quem precisa de qual informação, em que formato, por qual canal e com qual frequência, garantindo que as comunicações sejam personalizadas para cada grupo.
+
+\section{Matriz de Comunicações do Projeto}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{} L l l l l @{}}
+\toprule
+\textbf{O quê (Informação)} & \textbf{Para quem} & \textbf{Formato e Canal} & \textbf{Frequência} & \textbf{Responsável} \\
+\midrule
+\textbf{Relatório Executivo de Status} (Avanço, problemas, custos) & Diretoria (Patrocinador) & Documento PDF (1 pág.) enviado via E-mail & Quinzenal & GPs \\
+\addlinespace
+\textbf{Demonstração e Validação} (Entregas e protótipos) & Gestores de Frota & Reunião online (Teams/Meet) com atas pós-reunião & Mensal (ao fim da iteração) & GPs \\
+\addlinespace
+\textbf{Avisos de Privacidade e Uso} & Motoristas & Informativo impresso e termos de uso no app & Única / Em atualizações & Transportadora \\
+\addlinespace
+\textbf{Sincronização Técnica} (Bloqueios, decisões de código) & Equipe (Enzo e Kerlon) & Reunião rápida via Discord e registro no GitHub & Diária & Ambos os GPs \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Monitoramento das Comunicações}
+
+\begin{itemize}[itemsep=4pt]
+    \item \textbf{Coleta de Feedback:} A cada final de mês, será solicitado feedback informal ao Patrocinador para avaliar se o relatório executivo está no nível de detalhe correto (sem excesso de termos técnicos).
+    \item \textbf{Ajuste de Rota:} Caso a equipe identifique falhas de alinhamento técnico entre os GPs, a frequência de sincronização ou a ferramenta de registro de código (GitHub) será revisada e adaptada conforme a necessidade.
+\end{itemize}
+
+\end{document}

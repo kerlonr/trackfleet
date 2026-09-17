@@ -1,0 +1,88 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Plano de Engajamento}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DOCUMENTO DE PARTES INTERESSADAS DO PROJETO}\\[2pt]
+{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Partes Interessadas\\[2pt]
+Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 27/08
+\end{center}
+
+\vspace{2mm}
+\hrule
+\vspace{4mm}
+
+\noindent\textbf{\large Plano de Engajamento}
+
+\vspace{1mm}
+\noindent Define o nível atual e desejado de engajamento de cada parte interessada, estabelecendo as estratégias e ações para fechar eventuais lacunas e garantir o suporte necessário ao projeto.
+
+\section{Matriz de Avaliação do Engajamento}
+
+Níveis de engajamento: \textbf{D} (Desinformado), \textbf{R} (Resistente), \textbf{N} (Neutro), \textbf{A} (Apoiador), \textbf{L} (Líder).
+Legenda: \textbf{A} = Nível Atual, \textbf{D} = Nível Desejado.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{} L C C C C C @{}}
+\toprule
+\textbf{Parte Interessada} & \textbf{Desinformado} & \textbf{Resistente} & \textbf{Neutro} & \textbf{Apoiador} & \textbf{Líder} \\
+\midrule
+Diretoria da Transportadora & & & & A & D \\
+GPs / Equipe (Enzo e Kerlon) & & & & & A, D \\
+Gestores de Frota & A & & & D & \\
+Motoristas & & A & D & & \\
+Fornecedores de APIs/Hardware & & & A, D & & \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Estratégias de Engajamento e Ações}
+
+\begin{itemize}[itemsep=4pt]
+    \item \textbf{Diretoria (Apoiador $\rightarrow$ Líder):}
+    \begin{itemize}[label=--]
+        \item \textbf{Ação:} Promover reuniões curtas e executivas para validar resultados de negócio.
+        \item \textbf{Responsável:} GPs.
+        \item \textbf{Gatilho de reavaliação:} Caso o patrocinador pare de responder solicitações ou falte às reuniões de aprovação.
+    \end{itemize}
+    
+    \item \textbf{Gestores de Frota (Desinformado $\rightarrow$ Apoiador):}
+    \begin{itemize}[label=--]
+        \item \textbf{Ação:} Envolvê-los ativamente na definição e testes dos relatórios de alertas. Demonstrações dos incrementos de software.
+        \item \textbf{Responsável:} GPs.
+        \item \textbf{Gatilho de reavaliação:} Baixa adesão nas fases de testes de aceitação ou feedbacks genéricos.
+    \end{itemize}
+
+    \item \textbf{Motoristas (Resistente $\rightarrow$ Neutro):}
+    \begin{itemize}[label=--]
+        \item \textbf{Ação:} Garantir a comunicação transparente de que o sistema visa segurança (redução de furtos/acidentes) e não punição. Criar termos de uso e privacidade transparentes (conformidade LGPD).
+        \item \textbf{Responsável:} Patrocinador, com apoio técnico dos GPs.
+        \item \textbf{Gatilho de reavaliação:} Reclamações trabalhistas ou sabotagem aos equipamentos rastreadores.
+    \end{itemize}
+\end{itemize}
+
+\end{document}
