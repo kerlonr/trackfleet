@@ -1,0 +1,148 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Análise e Respostas aos Riscos}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
+
+\begin{document}
+
+\cabecalho{RISCOS}{Riscos}{24/09}
+
+\parte{Análise e Respostas aos Riscos}
+\noindent A análise quantitativa que dimensiona a reserva de contingência, o detalhamento das respostas aos riscos mais críticos e a forma como os riscos são monitorados até o encerramento.
+
+\section{Análise Quantitativa: Valor Monetário Esperado}
+O VME de cada risco é a probabilidade multiplicada pelo impacto em reais (custo do retrabalho ou da extensão, em dias-pessoa a R\$ 300,00). Ameaças têm impacto negativo e oportunidades, positivo; a soma é o tamanho da reserva de contingência do Documento de Finanças.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{l L r r r}
+\toprule
+\textbf{ID} & \textbf{Base do impacto} & \textbf{P} & \textbf{Impacto (R\$)} & \textbf{VME (R\$)} \\
+\midrule
+R01 & 6 dias-pessoa de espera e retrabalho na integração & 70\% & $-$1.800 & $-$1.260 \\
+R02 & 5 dias-pessoa além do pessimista no motor de alertas & 50\% & $-$1.500 & $-$750 \\
+R03 & 8 dias-pessoa de adequação à LGPD & 30\% & $-$2.400 & $-$720 \\
+R04 & 4 dias-pessoa perdidos para outras disciplinas & 50\% & $-$1.200 & $-$600 \\
+R05 & 4 dias a mais de piloto, a 1/3 da jornada de cada GP & 50\% & $-$800 & $-$400 \\
+R06 & 2 dias-pessoa parados aguardando aprovação & 30\% & $-$600 & $-$180 \\
+R07 & 3 dias-pessoa para recompor dados e reforçar a comunicação & 30\% & $-$900 & $-$270 \\
+R08 & 2 dias-pessoa de ajuste do motor de perda de sinal & 50\% & $-$600 & $-$300 \\
+O01 & 2 dias-pessoa economizados nos relatórios & 70\% & $+$600 & $+$420 \\
+O02 & 1 dia-pessoa economizado na ingestão & 30\% & $+$300 & $+$90 \\
+\midrule
+\multicolumn{4}{l}{\textbf{VME líquido = reserva de contingência}} & \textbf{$-$3.970} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent A oportunidade O03 não entra na conta porque o valor dela fica fora do projeto (é escalada ao patrocinador). O VME só faz sentido com estimativas razoáveis: as probabilidades usam as escalas do Plano de Gerenciamento dos Riscos e os impactos saem das mesmas durações do Cronograma, por isso a reserva é revista sempre que o registro muda.
+
+\section{Outros Parâmetros da Análise}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Proximidade:} R01 só existe até a ingestão ficar pronta (23/09); R02 até o motor de alertas fechar (06/10); R05 e R07 se concentram no piloto (28/10 a 12/11); R03 vale do primeiro dado coletado até o encerramento.
+  \item \textbf{Conectividade:} R01 alimenta R02 (o motor lê as posições ingeridas) e R08; R07 aumenta R08, porque rastreador desligado parece perda de sinal.
+  \item \textbf{Detectabilidade:} R04 e R06 são os mais difíceis de perceber cedo, por isso são perguntados em todo check-in.
+\end{itemize}
+
+\section{Respostas Detalhadas aos Riscos Prioritários}
+Toda resposta tem custo, prazo e dono, e já está incluída no Cronograma: o simulador de posições faz parte de A7 e o agendamento do piloto faz parte do Plano de Engajamento.
+
+\subsection*{R01 --- API do provedor (mitigar)}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Ação:} mapear a API na primeira semana (A2), pedindo credenciais de teste, limites e intervalo de envio; desenvolver a ingestão contra um simulador de posições que gera trajetos sintéticos no mesmo formato.
+  \item \textbf{Gatilho:} credenciais ou documentação não recebidas até 04/09 (fim de A2), ou limite menor que uma consulta por minuto por veículo.
+  \item \textbf{Plano de contingência:} seguir A7 e A8 sobre o simulador e plugar o provedor real em A17 (testes com dados reais).
+  \item \textbf{Plano de reserva:} trocar para outro provedor com ambiente de teste gratuito, decisão escalada ao patrocinador.
+  \item \textbf{Risco residual:} P 2, I 3 --- o atraso fica restrito à adaptação em A17.
+  \item \textbf{Risco secundário:} um provedor novo exige remapear a API, cerca de 2 dias tirados do buffer.
+  \item \textbf{Dono:} Kerlon.
+\end{itemize}
+
+\subsection*{R05 --- disponibilidade da transportadora para o piloto (mitigar)}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Ação:} combinar com o patrocinador, até 09/10, a data de início do piloto (28/10), os veículos participantes e o horário do gestor.
+  \item \textbf{Gatilho:} data ou veículos não confirmados até 09/10, ou menos de três veículos ativos na segunda semana do piloto (o sinal de alerta da Governança).
+  \item \textbf{Plano de contingência:} começar o piloto com a frota parcial disponível e validar os relatórios também com o histórico de posições já coletado.
+  \item \textbf{Plano de reserva:} estender o piloto em até 5 dias úteis usando o buffer, dentro da tolerância dos GPs; além disso, escalar.
+  \item \textbf{Risco residual:} P 2, I 3.
+  \item \textbf{Risco secundário:} o consumo do buffer reduz a proteção contra os demais riscos de prazo.
+  \item \textbf{Dono:} Kerlon.
+\end{itemize}
+
+\subsection*{R03 --- conformidade com a LGPD (prevenir)}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Ação:} privacidade desde o projeto --- coletar só veículo, posição, data e hora; excluir trajetos com mais de 90 dias; termo de ciência assinado por cada motorista; checklist LGPD como item da Definição de Pronto.
+  \item \textbf{Gatilho:} um item do checklist reprovado em qualquer entrega, ou um motorista sem termo assinado no início do piloto.
+  \item \textbf{Plano de contingência:} bloquear o vínculo do motorista sem termo e remover os dados excedentes antes de seguir.
+  \item \textbf{Plano de reserva:} rodar o piloto só com dados de veículo, sem vínculo com motorista, até a situação ser regularizada.
+  \item \textbf{Risco residual:} P 1, I 5.
+  \item \textbf{Risco secundário:} sem vínculo, o relatório por motorista fica indisponível durante o período.
+  \item \textbf{Dono:} Kerlon.
+\end{itemize}
+
+\section{Implementar as Respostas}
+Quando o gatilho dispara, o dono aciona o plano, registra no check-in se a resposta funcionou e, se ela mudar escopo, prazo ou custo, abre uma solicitação de mudança pelo fluxo da Governança. Planejar e não executar é uma das falhas mais comuns em gestão de riscos: por isso cada resposta tem nome de pessoa, e a reserva de contingência só é usada ligada a um risco do registro.
+
+\section{Monitorar os Riscos}
+A meta de exposição (soma de P $\times$ I das ameaças) cai à medida que os riscos expiram ou são respondidos. Se a exposição medida no check-in não acompanhar a meta, as respostas não estão funcionando e o assunto vai para a pauta do check-in seguinte.
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{l *{11}{C}}
+\toprule
+\textbf{Semana} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \textbf{S5} & \textbf{S6} & \textbf{S7} & \textbf{S8} & \textbf{S9} & \textbf{S10} & \textbf{S11} \\
+\midrule
+Meta de exposição & 70 & 60 & 60 & 54 & 54 & 45 & 45 & 41 & 31 & 31 & 31 \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Como a meta foi montada: em S2, com o acesso à API liberado, R01 cai para o residual (de 16 para 6); em S4, com a ingestão pronta, R01 se encerra; em S6, com o motor de alertas pronto, R02 se encerra; em S8, com os testes com dados reais, R08 cai para 2; em S9, com o piloto iniciado, R05 cai para o residual e R06 se encerra. R03, R04 e R07 permanecem até o encerramento.
+
+\noindent Indicadores-chave de risco (KRIs) acompanhados no check-in:
+\begin{itemize}[itemsep=2pt]
+  \item exposição total medida frente à meta da tabela;
+  \item percentual de respostas implementadas no prazo;
+  \item uso da reserva de contingência frente ao VME dos riscos que de fato ocorreram;
+  \item número de problemas que não estavam no registro (falha de identificação).
+\end{itemize}
+
+\section{Inteligência Artificial e Riscos}
+A dupla usou um assistente de IA para ampliar a identificação (sugerir riscos a partir dos requisitos e do cronograma) e conferir os cálculos de VME. Cada risco sugerido foi validado pelos dois GPs antes de entrar no registro, e a decisão e a responsabilidade sobre as respostas continuam humanas. O uso de IA traz riscos próprios --- respostas incorretas ou inventadas e exposição de dados --- tratados conferindo cada número na planilha de finanças e não enviando dados pessoais à ferramenta.
+
+\end{document}

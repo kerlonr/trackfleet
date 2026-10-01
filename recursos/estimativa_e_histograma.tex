@@ -1,0 +1,134 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Estimativa e Histograma de Recursos}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
+
+\begin{document}
+
+\cabecalho{RECURSOS}{Recursos}{17/09}
+
+\parte{Estimativa, Aquisição e Histograma de Recursos}
+\noindent Os processos de Estimar, Adquirir e Monitorar e Controlar os Recursos aplicados ao TrackFleet: quanto de cada recurso é preciso, quando e de que forma ele é obtido, e como a carga da equipe é acompanhada semana a semana.
+
+\section{Estimar os Recursos}
+A estimativa é bottom-up, somando as atividades do Cronograma nivelado; recursos físicos e virtuais são estimados pelo uso previsto no piloto.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.4cm} L >{\raggedright\arraybackslash}p{2.6cm} L}
+\toprule
+\textbf{Recurso (EAR)} & \textbf{Quantidade} & \textbf{Quando} & \textbf{Base da estimativa} \\
+\midrule
+Enzo (1.1.2) & 35 dias de trabalho pleno + 1/3 da jornada no piloto + treinamento (A19) e documentação final (A20) nos 2/3 restantes & 31/08 a 12/11 & Soma das atividades de que é dono no Cronograma \\
+Kerlon (1.1.3) & 36 dias de trabalho pleno + 1/3 da jornada no piloto + treinamento (A19) & 31/08 a 12/11 & Soma das atividades de que é dono no Cronograma \\
+Gestor de frota (1.1.4) & Cerca de 4 h em entrevistas, 2 h por validação quinzenal, 1 dia de treinamento e uso diário no piloto & A1, validações, A18 e A19 & Plano de Engajamento \\
+Rastreadores (1.2.2) & Pelo menos 3 veículos ativos no piloto & 28/10 a 12/11 & Sinal de alerta da Governança \\
+API do provedor (1.3.1) & 1 conta de teste e 1 de produção; 3 meses de assinatura & A partir de 03/09 (A2) & Duração de A7 até o fim do piloto \\
+VPS (1.3.2) & 1 servidor pequeno; 4 meses & A partir de 14/10 (A21) & Arquitetura do Documento de Escopo \\
+E-mail, mapas, domínio (1.3.3 a 1.3.5) & Planos gratuitos e 1 domínio & Até o início do piloto & Volume de alertas e acessos do piloto \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent A primeira estimativa é a menos precisa que o projeto terá: os números são reestimados a cada marco, junto com o registro de riscos.
+
+\section{Calendário de Recursos}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{GPs:} 6 horas por dia útil (30 horas por semana) de 31/08 a 12/11, descontados os feriados de 07/09, 12/10 e 02/11.
+  \item \textbf{Gestor de frota:} disponível em horário comercial, em datas combinadas com o patrocinador.
+  \item \textbf{Provas de outras disciplinas:} não estão no calendário porque as datas não são conhecidas com antecedência; são tratadas como risco (R04) e informadas no check-in assim que marcadas.
+\end{itemize}
+
+\section{Adquirir os Recursos}
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}p{2.6cm} L}
+\toprule
+\textbf{Recurso} & \textbf{Técnica} & \textbf{Como e quando} \\
+\midrule
+Os dois GPs & Pré-designação & Definidos no Termo de Abertura; designação por atividade no Cronograma \\
+Tempo do gestor e veículos do piloto & Negociação & Combinados com o patrocinador até 09/10 (risco R05), para o piloto começar em 28/10 \\
+API do provedor & Aquisição & Credenciais de teste pedidas na primeira semana (A2); assinatura contratada pelo patrocinador antes de A7 \\
+VPS, domínio e e-mail & Aquisição & Contratados até 13/10, antes da configuração da infraestrutura (A21) \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Histograma de Recursos}
+Horas por semana de cada GP, comparadas com a capacidade da semana (linha tracejada: 30 horas, ou 24 nas semanas com feriado ou com o fim do projeto).
+
+\begin{center}
+\begin{tikzpicture}[x=1.25cm, y=1.1mm]
+  % eixos
+  \draw (0,0) -- (11.2,0);
+  \draw (0,0) -- (0,34);
+  \foreach \h in {0,10,20,30} {\draw (-0.08,\h) -- (0,\h) node[left, font=\scriptsize] {\h};}
+  \node[rotate=90, font=\scriptsize] at (-0.75,17) {horas por semana};
+  % dados: semana, capacidade, Enzo, Kerlon
+  \foreach \i/\cap/\e/\k in {1/30/30/30, 2/24/24/18, 3/30/30/30, 4/30/30/30, 5/30/30/30, 6/30/30/30, 7/24/24/24, 8/30/12/24, 9/30/10/10, 10/24/8/8, 11/24/20/8} {
+    \pgfmathsetmacro{\xa}{\i-0.82}
+    \pgfmathsetmacro{\xb}{\i-0.5}
+    \draw[fill=white] (\xa,0) rectangle (\xa+0.3,\e);
+    \draw[fill=black!35] (\xb,0) rectangle (\xb+0.3,\k);
+    \draw[dashed, thick] (\i-0.92,\cap) -- (\i-0.1,\cap);
+    \node[font=\scriptsize, below] at (\i-0.5,0) {S\i};
+  }
+  % legenda
+  \draw[fill=white] (7.2,38) rectangle (7.5,40.5); \node[right, font=\scriptsize] at (7.5,39.2) {Enzo};
+  \draw[fill=black!35] (8.5,38) rectangle (8.8,40.5); \node[right, font=\scriptsize] at (8.8,39.2) {Kerlon};
+  \draw[dashed, thick] (9.9,39.2) -- (10.4,39.2); \node[right, font=\scriptsize] at (10.4,39.2) {capacidade};
+\end{tikzpicture}
+\end{center}
+
+\noindent Leitura do histograma:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Nenhuma sobrecarga:} nenhuma semana passa da capacidade, porque o Cronograma foi nivelado. Na primeira linha de base, Kerlon aparecia com mapa, cadastros, painel e relatórios na mesma semana --- mais de 100\% de alocação.
+  \item \textbf{Ociosidade planejada:} em S2 Kerlon tem um dia livre (espera o início da arquitetura para começar a autenticação), e de S8 a S11 a carga cai porque o piloto ocupa só um terço da jornada. Essa capacidade livre é a margem para atender correções pedidas pela transportadora no piloto (risco R05) sem consumir o buffer do projeto.
+  \item \textbf{Ponto de atenção:} de S3 a S7 os dois estão a 100\%. Qualquer demanda externa nesse período --- uma prova, por exemplo --- vira atraso, o que justifica o risco R04 e o acompanhamento semanal.
+\end{itemize}
+
+\section{Monitorar e Controlar os Recursos}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Equipe:} no check-in semanal, horas planejadas no histograma são comparadas com as realizadas; desvio de mais de um dia em atividade crítica aciona replanejamento da ordem de trabalho.
+  \item \textbf{Recursos físicos e virtuais:} cotas da API, do e-mail e dos tiles conferidas mensalmente e antes do piloto; custo mensal comparado ao OpEx previsto em Finanças.
+  \item \textbf{Ações corretivas:} se um GP ficar sobrecarregado, a atividade com folga (por exemplo, A13 ou A15) muda de posição na ordem de trabalho antes de qualquer atividade crítica ser mexida.
+\end{itemize}
+
+\section{Sustentabilidade e Uso de IA}
+O princípio de sustentabilidade da 8\textsuperscript{a} edição aparece em duas decisões: a jornada fixa de 30 horas semanais por GP, sem horas extras planejadas para recuperar atraso (quem protege o prazo é o buffer, não o cansaço da equipe), e a infraestrutura enxuta (um único VPS pequeno em vez de vários serviços gerenciados). A IA foi usada apenas para conferir a soma das cargas e montar o histograma; a responsabilidade pela alocação continua com os GPs, os ``A'' da RACI.
+
+\end{document}

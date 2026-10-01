@@ -20,69 +20,91 @@
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
 
 \begin{document}
 
-\begin{center}
-{\Large\bfseries DOCUMENTO DE PARTES INTERESSADAS DO PROJETO}\\[2pt]
-{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Partes Interessadas\\[2pt]
-Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 27/08
-\end{center}
+\cabecalho{PARTES INTERESSADAS}{Partes Interessadas}{10/09}
 
-\vspace{2mm}
-\hrule
-\vspace{4mm}
-
-\noindent\textbf{\large Plano de Engajamento}
-
-\vspace{1mm}
-\noindent Define o nível atual e desejado de engajamento de cada parte interessada, estabelecendo as estratégias e ações para fechar eventuais lacunas e garantir o suporte necessário ao projeto.
+\parte{Plano de Engajamento}
+\noindent Define o nível atual e o desejado de engajamento de cada parte interessada e as ações para fechar as lacunas, garantindo o apoio de que o projeto precisa.
 
 \section{Matriz de Avaliação do Engajamento}
+C = nível atual $\cdot$ D = nível desejado. A lacuna entre C e D orienta onde o esforço de engajamento é gasto.
 
-Níveis de engajamento: \textbf{D} (Desinformado), \textbf{R} (Resistente), \textbf{N} (Neutro), \textbf{A} (Apoiador), \textbf{L} (Líder).
-Legenda: \textbf{A} = Nível Atual, \textbf{D} = Nível Desejado.
-
-\begin{table}[h]
-\centering
+\begin{center}
 \small
-\begin{tabularx}{\textwidth}{@{} L C C C C C @{}}
+\begin{tabularx}{\textwidth}{L c c c c c}
 \toprule
-\textbf{Parte Interessada} & \textbf{Desinformado} & \textbf{Resistente} & \textbf{Neutro} & \textbf{Apoiador} & \textbf{Líder} \\
+\textbf{Parte interessada} & \textbf{Desinformado} & \textbf{Resistente} & \textbf{Neutro} & \textbf{Apoiador} & \textbf{Líder} \\
 \midrule
-Diretoria da Transportadora & & & & A & D \\
-GPs / Equipe (Enzo e Kerlon) & & & & & A, D \\
-Gestores de Frota & A & & & D & \\
-Motoristas & & A & D & & \\
-Fornecedores de APIs/Hardware & & & A, D & & \\
+Diretoria da transportadora (patrocinador) & & & & C & D \\
+GPs (Enzo e Kerlon) & & & & & C/D \\
+Professor da disciplina & & & & C/D & \\
+Gestor de frota & C & & & D & \\
+Motoristas & & C & D & & \\
+Provedor de rastreamento (API) & & & C & D & \\
+Fornecedores de infraestrutura & & & C/D & & \\
+ANPD & & & C/D & & \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\end{center}
 
-\section{Estratégias de Engajamento e Ações}
+\noindent A maior lacuna é a do gestor de frota (de desinformado a apoiador): é ele quem vai usar o produto e validar os indicadores no piloto. O patrocinador já apoia, mas o projeto precisa dele como líder --- um patrocinador que não se engaja é, como diz a aula, um risco e não um recurso.
 
-\begin{itemize}[itemsep=4pt]
-    \item \textbf{Diretoria (Apoiador $\rightarrow$ Líder):}
-    \begin{itemize}[label=--]
-        \item \textbf{Ação:} Promover reuniões curtas e executivas para validar resultados de negócio.
-        \item \textbf{Responsável:} GPs.
-        \item \textbf{Gatilho de reavaliação:} Caso o patrocinador pare de responder solicitações ou falte às reuniões de aprovação.
-    \end{itemize}
-    
-    \item \textbf{Gestores de Frota (Desinformado $\rightarrow$ Apoiador):}
-    \begin{itemize}[label=--]
-        \item \textbf{Ação:} Envolvê-los ativamente na definição e testes dos relatórios de alertas. Demonstrações dos incrementos de software.
-        \item \textbf{Responsável:} GPs.
-        \item \textbf{Gatilho de reavaliação:} Baixa adesão nas fases de testes de aceitação ou feedbacks genéricos.
-    \end{itemize}
+\section{Estratégias e Ações por Parte}
 
-    \item \textbf{Motoristas (Resistente $\rightarrow$ Neutro):}
-    \begin{itemize}[label=--]
-        \item \textbf{Ação:} Garantir a comunicação transparente de que o sistema visa segurança (redução de furtos/acidentes) e não punição. Criar termos de uso e privacidade transparentes (conformidade LGPD).
-        \item \textbf{Responsável:} Patrocinador, com apoio técnico dos GPs.
-        \item \textbf{Gatilho de reavaliação:} Reclamações trabalhistas ou sabotagem aos equipamentos rastreadores.
-    \end{itemize}
+\begin{itemize}[itemsep=5pt]
+  \item \textbf{Patrocinador (apoiador para líder):}
+  \begin{itemize}[label=--]
+    \item \textbf{Ação:} relatório executivo de uma página a cada quinze dias; pedidos de aprovação de marco por e-mail, com análise de impacto e prazo de resposta de 2 dias úteis; demonstração da plataforma integrada em 20/10.
+    \item \textbf{Responsável:} Enzo.
+    \item \textbf{Gatilho de reavaliação:} duas solicitações sem resposta no prazo ou ausência na aprovação de um marco (risco R06).
+  \end{itemize}
+  \item \textbf{Gestor de frota (desinformado para apoiador):}
+  \begin{itemize}[label=--]
+    \item \textbf{Ação:} entrevista no levantamento de requisitos (A1); validação do mapa e do painel a cada quinze dias durante o desenvolvimento; treinamento no primeiro dia do piloto (A19); conversa semanal durante o piloto.
+    \item \textbf{Responsável:} Kerlon.
+    \item \textbf{Gatilho de reavaliação:} feedback genérico nas validações ou o sinal de alerta da Governança (menos de três veículos ativos na segunda semana do piloto).
+  \end{itemize}
+  \item \textbf{Motoristas (resistente para neutro):}
+  \begin{itemize}[label=--]
+    \item \textbf{Ação:} a transportadora comunica que o rastreamento visa segurança e manutenção, não punição; cada motorista assina um termo de ciência sobre os dados coletados (LGPD) e há um aviso fixado no veículo com o canal para dúvidas.
+    \item \textbf{Responsável:} Kerlon, executando junto com o patrocinador.
+    \item \textbf{Gatilho de reavaliação:} recusa em assinar o termo, reclamações ou perda de sinal recorrente no mesmo veículo (risco R07).
+  \end{itemize}
+  \item \textbf{Provedor de rastreamento (neutro para apoiador):}
+  \begin{itemize}[label=--]
+    \item \textbf{Ação:} contato técnico na primeira semana (A2) para obter credenciais de teste, limites de requisição, intervalo de envio e SLA; status semanal durante a ingestão (A7) e o piloto.
+    \item \textbf{Responsável:} Kerlon.
+    \item \textbf{Gatilho de reavaliação:} acesso à API não liberado até 04/09, fim de A2 (risco R01).
+  \end{itemize}
+  \item \textbf{Partes sem lacuna (manter o nível):} os GPs mantêm o engajamento pelo Termo da Equipe (sincronização diária e check-in semanal); o professor recebe as entregas a cada aula; os fornecedores de infraestrutura têm as cotas conferidas uma vez por mês; a ANPD não tem contato direto previsto, e a conformidade fica demonstrada pelo checklist LGPD da Definição de Pronto.
+\end{itemize}
+
+\section{Monitorar o Engajamento}
+O nível atual (C) de cada parte é reavaliado no check-in de cada marco do Cronograma, comparado ao desejado (D), e a estratégia é ajustada sobre a diferença medida, não sobre suposições. Uma tática que funcionou no planejamento pode falhar na entrega --- por isso o piloto, quando gestor e motoristas passam a usar o sistema de verdade, tem conversa semanal com o gestor em vez de quinzenal.
+
+\section{Uso de Inteligência Artificial}
+Atendendo ao pedido da aula, a dupla registra como usou IA no trabalho:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Como foi usada:} um assistente de IA (Claude, da Anthropic) apoiou a revisão de consistência entre os documentos dos domínios, a conferência dos cálculos (PERT, valor agregado, VME) e a redação de rascunhos.
+  \item \textbf{O que não foi delegado:} as decisões do projeto --- escopo, donos das atividades, classificação das partes e estratégias de engajamento --- são dos GPs; cada sugestão da IA foi revisada pelos dois antes de entrar nos documentos.
+  \item \textbf{Cuidados:} nenhum dado pessoal real de motoristas ou da transportadora foi enviado à ferramenta (o cenário do projeto é fictício); os números foram conferidos na planilha de finanças, que recalcula tudo por fórmula; e a possibilidade de a IA errar ou inventar informação foi tratada conferindo cada valor contra a fonte.
 \end{itemize}
 
 \end{document}

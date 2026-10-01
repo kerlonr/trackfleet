@@ -19,43 +19,61 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
 
 \begin{document}
 
-\begin{center}
-{\Large\bfseries DOCUMENTO DE RECURSOS DO PROJETO}\\[2pt]
-{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Recursos\\[2pt]
-Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 03/09
-\end{center}
+\cabecalho{RECURSOS}{Recursos}{17/09}
 
-\vspace{2mm}
-\hrule
-\vspace{4mm}
+\parte{Termo da Equipe (Team Charter)}
+\noindent Os valores, as regras de trabalho e a forma de liderar e resolver conflitos da dupla --- definidos cedo, porque acordos de convivência evitam a maioria dos conflitos futuros.
 
-\noindent\textbf{\large Termo da Equipe (Team Charter)}
-
-\vspace{1mm}
-\noindent Documenta os valores, as regras de trabalho e as estratégias de comunicação e liderança da equipe, fundamentais para manter a performance e mitigar atritos em um projeto com recursos enxutos.
+\section{Valores da Equipe}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Transparência:} status sempre binário (pronto ou não pronto) e bloqueios avisados no mesmo dia.
+  \item \textbf{Responsabilidade por frente:} cada GP responde pela sua frente (RACI), sem deixar de revisar a do outro.
+  \item \textbf{Qualidade combinada:} nada é ``pronto'' sem cumprir a Definição de Pronto do Documento de Escopo.
+\end{itemize}
 
 \section{Acordos de Trabalho e Convivência}
-
 \begin{itemize}[itemsep=4pt]
-    \item \textbf{Comunicação e Sincronização (Rituais):} 
-    A comunicação será primariamente assíncrona, via Discord/WhatsApp. Será adotada uma breve sincronização ("Daily" adaptada) de 15 minutos às 19h para alinhar prioridades e apontar bloqueios.
-    \item \textbf{Gestão de Qualidade (Code Review):} 
-    É regra mandatória que nenhum código seja integrado (merge) na branch principal sem uma revisão do outro membro. Se Enzo codifica, Kerlon revisa e aprova, e vice-versa.
-    \item \textbf{Resolução de Conflitos:} 
-    A abordagem preferencial é a \textbf{Colaboração/Resolução} (busca de solução ganha-ganha, baseada em dados técnicos). Sendo uma co-gestão sem hierarquia, em caso de impasse técnico prolongado que afete o prazo, o Patrocinador (ou Orientador) atuará como fiel da balança.
+  \item \textbf{Comunicação:} assíncrona por padrão, via Discord, com resposta em até 4 horas em dia útil; WhatsApp só para urgências.
+  \item \textbf{Rituais:} sincronização diária de 15 minutos às 19h, só para prioridades e bloqueios; check-in semanal de 10 minutos para governança, indicadores e riscos (Documento de Governança).
+  \item \textbf{Jornada:} cada GP reserva 6 horas por dia útil ao projeto durante a execução (calendário de recursos no documento de Estimativa e Histograma).
+  \item \textbf{Code review:} nenhum código entra na branch principal sem revisão do outro GP; quem escreveu não aprova o próprio código.
+  \item \textbf{Definição de Pronto:} a do Documento de Escopo --- implementada, revisada, integrada em homologação, testada com dados do rastreador e sem exposição indevida de dados pessoais.
+  \item \textbf{Escalonamento:} impasse técnico que não se resolve na conversa e afeta prazo, escopo ou objetivo sobe ao patrocinador, conforme o Documento de Governança.
 \end{itemize}
+
+\section{Resolução de Conflitos}
+A abordagem preferencial é colaborar (buscar a solução ganha-ganha, atacando o problema e não a pessoa), porque gera os acordos mais duradouros. Em urgência pontual --- por exemplo, um bloqueio no caminho crítico às vésperas de um marco --- a dupla aceita conciliar ou deixar a decisão com o dono da frente, e revisita o tema depois.
+
+\noindent Caso escolhido para o projeto: Kerlon escreve os testes automatizados (A15) do motor de alertas que Enzo implementa (A8). Se os dois divergirem sobre quando um motor está ``pronto'', a dupla não impõe nem evita a conversa: monta junto um checklist de aceitação por motor (casos de disparo, de não disparo e de limite configurado), que passa a fazer parte dos testes de A15.
 
 \section{Fase Atual da Equipe (Modelo de Tuckman)}
-
-Considerando a relação de pares já estabelecida em outros trabalhos acadêmicos, a equipe avança rapidamente pelas fases. No momento da assinatura deste termo, o time se encontra na transição da fase de \textbf{Normatização} para \textbf{Desempenho}:
+Na assinatura deste termo, a dupla está na transição de normatização para desempenho:
 \begin{itemize}[itemsep=2pt]
-    \item Os papéis cruzados já foram debatidos e aceitos.
-    \item As regras de código e responsabilidades da Matriz RACI servem para evitar a fase de \textit{Confronto} tardia.
-    \item A equipe atua como auto-organizada, com foco em produtividade e entregas funcionais.
+  \item A formação e o confronto foram curtos, porque os dois já trabalharam juntos em outras disciplinas.
+  \item Os acordos acima e a RACI por frente registram a normatização: papéis e regras debatidos e aceitos.
+  \item Para não voltar ao confronto no fim do projeto, quando a pressão do prazo cresce, as regras de code review e de escalonamento ficam escritas desde já.
 \end{itemize}
+
+\section{Motivação e Reconhecimento}
+Os motivadores principais da dupla são autonomia sobre a própria frente e aprendizado técnico. O reconhecimento é feito sem custo: feedback específico na revisão de código e registro, no check-in, de cada marco entregue no prazo.
 
 \end{document}

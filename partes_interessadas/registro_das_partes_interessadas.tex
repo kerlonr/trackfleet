@@ -4,6 +4,7 @@
 \usepackage[brazil]{babel}
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{mathptmx}
+\usepackage{xltabular}
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -19,55 +20,78 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
 
 \begin{document}
 
-\begin{center}
-{\Large\bfseries DOCUMENTO DE PARTES INTERESSADAS DO PROJETO}\\[2pt]
-{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Partes Interessadas\\[2pt]
-Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 27/08
-\end{center}
+\cabecalho{PARTES INTERESSADAS}{Partes Interessadas}{10/09}
 
-\vspace{2mm}
-\hrule
-\vspace{4mm}
+\parte{Registro das Partes Interessadas}
+\noindent A lista viva de quem pode afetar, ser afetado ou se perceber afetado pelo TrackFleet: papel, interesses, poder e interesse, e a estratégia inicial de engajamento de cada parte.
 
-\noindent\textbf{\large Registro das Partes Interessadas}
+\section{Identificação e Classificação}
+A classificação usa a matriz Poder $\times$ Interesse da aula: gerenciar de perto (alto poder e alto interesse), manter satisfeito (alto poder e baixo interesse), manter informado (baixo poder e alto interesse) e monitorar (baixo poder e baixo interesse).
 
-\vspace{1mm}
-\noindent O registro identifica e analisa os indivíduos e organizações que podem influenciar ou ser impactados pelo projeto, definindo seus interesses, nível de poder e a estratégia inicial de classificação.
-
-\section{Mapeamento e Classificação}
-
-\begin{table}[h]
-\centering
-\small
-\begin{tabularx}{\textwidth}{@{} l L L l l @{}}
+{\small
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}p{2.6cm} l L L l >{\raggedright\arraybackslash}p{1.9cm}}
 \toprule
-\textbf{Parte Interessada} & \textbf{Papel e Identificação} & \textbf{Interesses e Expectativas} & \textbf{Poder/Interesse} & \textbf{Estratégia} \\
+\textbf{Parte interessada} & \textbf{Tipo} & \textbf{Papel} & \textbf{Interesses e expectativas} & \textbf{Poder / Int.} & \textbf{Estratégia} \\
 \midrule
-\textbf{Diretoria da Transportadora} & Patrocinador (interno). Aprova recursos, mudanças e encerramento. & Plataforma operante até o fim do semestre, reduzindo custos operacionais e multas. & Alto / Alto & \textbf{Gerenciar de perto} \\
+\endhead
+Diretoria da transportadora parceira & Interna & Patrocinador: aprova termo, linhas de base, mudanças e encerramento; custeia a infraestrutura do piloto & Plataforma operando até o fim do semestre, com redução de custos de manutenção e de multas & Alto / Alto & Gerenciar de perto \\
 \addlinespace
-\textbf{Enzo e Kerlon} & GPs e Equipe de Desenvolvimento. & Concluir o projeto acadêmico com sucesso, mantendo escopo exequível e qualidade técnica. & Alto / Alto & \textbf{Gerenciar de perto} \\
+Enzo Allebrand e Kerlon Ribeiro & Interna & GPs e equipe de desenvolvimento & Concluir o projeto com escopo exequível, qualidade técnica e boa avaliação acadêmica & Alto / Alto & Gerenciar de perto \\
 \addlinespace
-\textbf{Gestores de Frota} & Usuários finais (externos/clientes). Operam o dashboard no dia a dia. & Sistema fácil de usar, dados em tempo real confiáveis e geração de relatórios úteis. & Baixo / Alto & \textbf{Manter informado} \\
+Professor da disciplina & Externa & Avaliador do trabalho acadêmico & Aplicação correta de cada domínio do PMBOK 8 ao projeto, nas datas das aulas & Alto / Médio & Gerenciar de perto \\
 \addlinespace
-\textbf{Motoristas} & Usuários impactados. Conduzem os veículos rastreados. & Preocupação com privacidade e receio de uso punitivo do rastreamento. & Baixo / Alto & \textbf{Manter informado} \\
+Gestor de frota da transportadora & Externa & Usuário final: opera o mapa, os alertas e os relatórios; participa do piloto & Sistema fácil de usar, posição confiável e alertas sem alarme falso & Baixo / Alto & Manter informado \\
 \addlinespace
-\textbf{Provedores de Hardware e APIs} & Fornecedores (Google Maps, fabricantes de rastreadores, AWS). & Uso correto dos serviços dentro das cotas e do faturamento das APIs contratadas. & Baixo / Baixo & \textbf{Monitorar} \\
+Motoristas da transportadora & Externa & Afetados: conduzem os veículos rastreados; são registros da frota, sem acesso ao sistema & Privacidade e receio de uso punitivo do rastreamento & Baixo / Alto & Manter informado \\
 \addlinespace
-\textbf{Órgão Regulador (ANPD)} & Entidade externa. Fiscaliza conformidade com a LGPD. & Garantia de privacidade e proteção dos dados de localização dos motoristas. & Alto / Baixo & \textbf{Manter satisfeito} \\
+Provedor de rastreamento (API) & Externa & Fornecedor crítico: fornece as posições, as credenciais e os limites de uso & Uso correto da API dentro das cotas e do plano contratado & Alto / Baixo & Manter satisfeito \\
+\addlinespace
+Fornecedores de infraestrutura & Externa & VPS, domínio, e-mail transacional e tiles do OpenStreetMap & Uso dentro dos planos contratados e da política de uso justo & Baixo / Baixo & Monitorar \\
+\addlinespace
+ANPD & Externa & Órgão regulador: fiscaliza a conformidade com a LGPD & Proteção dos dados de localização e dos dados pessoais dos motoristas & Alto / Baixo & Manter satisfeito \\
 \bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+}
+
+\noindent O provedor de rastreamento aparece com alto poder de propósito: a ingestão de posições (atividade A7 do Cronograma) depende dele como dependência obrigatória externa, e um atraso no acesso à API trava o caminho crítico. Tratá-lo como fornecedor passivo seria o ponto cego que a aula descreve.
 
 \section{Análise de Prioridade (Modelo de Saliência)}
-
+O modelo combina poder, legitimidade e urgência; quanto mais atributos, maior a prioridade de engajamento.
 \begin{itemize}[itemsep=4pt]
-    \item \textbf{Prioridade Máxima (Saliência Alta):} A \textbf{Diretoria da Transportadora} detém \textit{poder} (orçamento e aprovação), \textit{legitimidade} (é dona do negócio) e \textit{urgência} (precisa dos resultados financeiros em curto prazo). Os \textbf{GPs} também se enquadram no centro.
-    \item \textbf{Prioridade Média (Legitimidade e Urgência):} \textbf{Gestores de Frota} e \textbf{Motoristas} possuem forte legitimidade e urgência nas suas expectativas, mas não detêm poder direto sobre a execução do projeto.
-    \item \textbf{Prioridade de Conformidade (Poder e Legitimidade):} A \textbf{ANPD} (via diretrizes LGPD) possui grande poder de veto legal e legitimidade inquestionável, porém baixa urgência no dia a dia do projeto (atuando como restrição).
+  \item \textbf{Prioridade máxima (poder, legitimidade e urgência):} a Diretoria da transportadora, que tem orçamento e aprovação, é dona do negócio e precisa dos resultados ainda neste semestre; e os próprios GPs, que fazem o trabalho e respondem por ele.
+  \item \textbf{Alta prioridade (poder e legitimidade):} o professor da disciplina, que avalia cada entrega; o provedor da API, que pode bloquear a integração e tem contrato que legitima suas regras; e a ANPD, com poder de veto legal, mas sem urgência no dia a dia do projeto (atua como restrição).
+  \item \textbf{Prioridade média (legitimidade e urgência):} gestor de frota e motoristas, que têm expectativas legítimas e urgentes, mas não detêm poder direto sobre a execução.
+  \item \textbf{Prioridade baixa:} fornecedores de infraestrutura, substituíveis e com uso coberto por planos de baixo custo.
 \end{itemize}
+
+\section{Direções de Influência}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Ascendente:} patrocinador e professor da disciplina.
+  \item \textbf{Descendente:} a própria equipe (os dois GPs).
+  \item \textbf{Lateral:} outras disciplinas do semestre, que disputam o tempo da dupla (tratado como risco R04 no registro de riscos).
+  \item \textbf{Externa:} provedor da API, fornecedores de infraestrutura, gestor de frota, motoristas e ANPD.
+\end{itemize}
+
+\section{Atualização do Registro}
+A identificação é contínua: o registro é revisto no check-in de cada marco do Cronograma e sempre que surgir uma parte nova (por exemplo, um segundo provedor de rastreamento ou outra transportadora interessada). A reavaliação também é uma resposta a risco, porque uma parte não identificada vira surpresa na execução.
 
 \end{document}

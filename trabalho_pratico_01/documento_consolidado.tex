@@ -1,0 +1,251 @@
+% Trabalho Prático 01 --- documento consolidado de todos os domínios do PMBOK 8.
+% O conteúdo de cada domínio NÃO é copiado aqui: os .tex de cada pasta são incluídos
+% com \input via docmute (que ignora o preâmbulo de cada arquivo). Para mudar um
+% domínio, edite o .tex da pasta dele e recompile este arquivo.
+\documentclass[11pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{array}
+\usepackage{forest}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{docmute}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}, pdftitle={TrackFleet --- Documento Consolidado do Projeto}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Documento Consolidado do Projeto}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\titleformat{\chapter}[display]{\normalfont\bfseries}{\large\MakeUppercase{\chaptertitlename}\ \thechapter}{4pt}{\LARGE}
+\titlespacing*{\chapter}{0pt}{-10pt}{18pt}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Comandos usados pelos documentos de cada domínio, redefinidos para o consolidado:
+% o cabeçalho de documento some (o capítulo já identifica o domínio), cada parte de
+% um domínio com vários documentos vira uma seção, e os separadores viram espaço.
+\let\secaoparte\section
+\newcommand{\cabecalho}[3]{}
+\newcommand{\parte}[1]{\secaoparte{#1}}
+\newcommand{\separador}{\par\medskip}
+\newcommand{\dodbox}{$\square$}
+% Inclui um documento que é uma das partes de um domínio: as seções dele descem um nível.
+\newcommand{\subdocumento}[1]{\begingroup\let\section\subsection\let\subsection\subsubsection\input{#1}\endgroup}
+% Capítulo sem número que ainda aparece no sumário.
+\newcommand{\capitulosemnumero}[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}\markboth{#1}{#1}}
+\newcommand{\secaosemnumero}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+
+\begin{document}
+
+%======================================================================
+% Capa
+%======================================================================
+\begin{titlepage}
+\centering
+{\large SETREM --- Sociedade Educacional Três de Maio}\\[2pt]
+{\large Engenharia da Computação $\cdot$ 4\textsuperscript{o} semestre}\\[2pt]
+{\large Disciplina de Gestão de Projetos $\cdot$ Prof. Eduardo Mildner}
+
+\vspace{5cm}
+
+{\LARGE\bfseries TrackFleet}\\[6pt]
+{\Large\bfseries Gestão de Rastreador de Automóveis}\\[24pt]
+{\large DOCUMENTO CONSOLIDADO DO PROJETO}\\[4pt]
+{\large Trabalho Prático 01}\\[16pt]
+Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ os sete domínios de desempenho
+
+\vfill
+
+{\large Enzo Allebrand e Kerlon Ribeiro}\\[2pt]
+Gerentes do projeto (co-gestão)
+
+\vspace{1.5cm}
+
+Três de Maio, 1\textsuperscript{o} de outubro de 2026
+\end{titlepage}
+
+\tableofcontents
+
+%======================================================================
+% Visão geral
+%======================================================================
+\capitulosemnumero{Visão Geral do Projeto}
+
+\noindent Este documento reúne, em um só lugar, tudo o que a dupla produziu para o TrackFleet ao longo das aulas de Gestão de Projetos: um capítulo para cada um dos sete domínios de desempenho do Guia PMBOK\textregistered\ 8\textsuperscript{a} Edição, na ordem em que foram estudados. Cada capítulo aplica os conceitos da aula a decisões concretas do projeto; o último capítulo mostra como os domínios se amarram.
+
+\secaosemnumero{O Projeto em Tópicos}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{O que é:} uma plataforma web de rastreamento e gestão de frotas, integrada por API a rastreadores GPS já instalados nos veículos.
+  \item \textbf{Para quem:} pequenas transportadoras; o usuário é o gestor de frota.
+  \item \textbf{Problema:} falta de visibilidade em tempo real da frota e de dados objetivos para decisões de manutenção e uso dos veículos, agravada pelo custo elevado das soluções corporativas.
+  \item \textbf{Objetivo:} lançar a plataforma até o fim do semestre letivo.
+  \item \textbf{O que entrega:} mapa quase em tempo real, quatro motores de alerta (manutenção, documentos, cerca virtual e perda de sinal), três relatórios exportáveis e um painel de indicadores.
+  \item \textbf{Valor esperado:} redução de custos operacionais e de manutenção corretiva, mais segurança para veículos e motoristas e decisões baseadas em dados reais.
+  \item \textbf{Patrocinador:} Diretoria da transportadora parceira (papel fictício definido pela dupla).
+  \item \textbf{Gerentes do projeto:} Enzo Allebrand e Kerlon Ribeiro, em co-gestão.
+  \item \textbf{Restrições:} prazo do semestre letivo, orçamento zero para hardware próprio e LGPD.
+\end{itemize}
+
+\secaosemnumero{Painel do Projeto}
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.2cm} L}
+\toprule
+\textbf{Indicador} & \textbf{Valor e onde está} \\
+\midrule
+Prazo & 31/08 a 12/11/2026, 51 dias úteis, com buffer de 24 dias úteis até o fim do semestre (17/12) --- Capítulo~\ref{cap:cronograma} \\
+Caminho crítico & Requisitos, arquitetura, banco, API de cadastros, motor de alertas, relatórios, infraestrutura, integração, testes com dados reais, piloto e documentação --- Capítulo~\ref{cap:cronograma} \\
+Escopo & 4 épicos, 21 atividades, 14 pacotes de trabalho na EAP --- Capítulo~\ref{cap:escopo} \\
+Linha de base de custos (BAC) & R\$ 32.770, com reserva de contingência de R\$ 3.970 --- Capítulo~\ref{cap:financas} \\
+Orçamento total & R\$ 34.409, com reserva de gerenciamento de R\$ 1.639 --- Capítulo~\ref{cap:financas} \\
+Retorno & VPL de 3 anos de cerca de R\$ 14.588, TIR de cerca de 35\% ao ano e payback de cerca de 1,7 ano --- Capítulo~\ref{cap:financas} \\
+Partes interessadas & 8 partes no registro; maior lacuna de engajamento no gestor de frota --- Capítulo~\ref{cap:partes} \\
+Equipe & 2 GPs, 30 horas semanais cada, sem sobrecarga após o nivelamento --- Capítulo~\ref{cap:recursos} \\
+Riscos & 8 ameaças e 3 oportunidades; maior risco R01 (API do provedor, P $\times$ I = 16) --- Capítulo~\ref{cap:riscos} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\secaosemnumero{Como Este Documento Está Organizado}
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{l l L L}
+\toprule
+\textbf{Capítulo} & \textbf{Aula} & \textbf{Documentos} & \textbf{Pergunta que responde} \\
+\midrule
+1 Governança & 13/08 & Termo de abertura; papéis e RACI; modelo e escalonamento; métricas e sinal; regras e registro de decisões & Quem decide o quê, como e com quais critérios? \\
+2 Escopo & 20/08 & Escopo do produto, do projeto e qualidade & O que entra, o que fica de fora e quando está pronto? \\
+3 Cronograma & 27/08 & Atividades, dependências, estimativas, caminho crítico, linha de base & Quando cada coisa acontece, e quem faz? \\
+4 Finanças & 03/09 & Plano financeiro, estimativas, orçamento, valor agregado e business case & Quanto custa e por que vale a pena? \\
+5 Partes Interessadas & 10/09 & Registro; plano de engajamento; plano de comunicações & Quem influencia o projeto e como manter todos alinhados? \\
+6 Recursos & 17/09 & Termo da equipe; RACI; EAR; estimativa e histograma & Quem faz o trabalho e com quais recursos? \\
+7 Riscos & 24/09 & Plano de gerenciamento; registro; análise e respostas & O que pode dar errado ou certo, e o que fazer? \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent Dentro dos capítulos, quando um texto cita o ``Documento de Escopo'', o ``Documento de Cronograma'' e assim por diante, a referência é ao capítulo do domínio correspondente: cada capítulo é o documento que a dupla entregou na aula daquele domínio.
+
+\secaosemnumero{Como Ler as Datas}
+Todos os capítulos descrevem o plano do projeto, cuja execução começou em 31/08, na semana seguinte à aula de Cronograma. Como cada domínio foi estudado em uma aula diferente, alguns planos foram formalizados com a execução já em andamento: o Plano de Engajamento (10/09) e o registro de riscos (24/09), por exemplo, trazem ações e gatilhos das primeiras semanas, como o mapeamento da API do provedor até 04/09. Esses itens foram mantidos para que o plano fique completo e coerente do início ao fim. O acompanhamento do que de fato aconteceu é feito no check-in semanal e não faz parte deste documento; o exemplo de valor agregado do Capítulo~\ref{cap:financas} é uma simulação, não uma medição.
+
+\secaosemnumero{Notas desta Versão}
+Para o Trabalho Prático 01 todos os documentos foram revisados juntos, e as correções feitas estão registradas no log de decisões (Capítulo~\ref{cap:governanca}):
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Cronograma nivelado:} a primeira linha de base punha atividades do mesmo GP em paralelo e ignorava feriados; com dono único por atividade e nivelamento de recursos, o prazo passou de 49 para 51 dias úteis, absorvidos pelo buffer.
+  \item \textbf{Finanças recalculadas:} os custos agora saem das atividades do cronograma nivelado, e a reserva de contingência passou a ser o VME do registro de riscos.
+  \item \textbf{Escopo completado:} EAP com arquitetura e infraestrutura, dicionário com todos os pacotes, rastreabilidade dos requisitos e requisitos não funcionais com valores medíveis.
+  \item \textbf{Coerência entre domínios:} RACI de Governança e de Recursos, donos do cronograma e tecnologias citadas em Partes Interessadas e Recursos passaram a usar os mesmos dados.
+  \item \textbf{Domínio de Riscos:} produzido a partir da aula de 24/09.
+\end{itemize}
+
+%======================================================================
+% Domínios
+%======================================================================
+\chapter{Governança}\label{cap:governanca}
+\noindent Aula de 13/08. O primeiro domínio define quem decide o quê, com quais critérios e como o valor será medido --- a estrutura que sustenta todos os outros. O capítulo reúne as cinco partes do Documento de Governança.
+\subdocumento{../governanca/termo_de_abertura}
+\subdocumento{../governanca/papeis_e_raci}
+\subdocumento{../governanca/modelo_e_escalonamento}
+\subdocumento{../governanca/metricas_e_sinal}
+\subdocumento{../governanca/regras_e_registro}
+
+\chapter{Escopo}\label{cap:escopo}
+\noindent Aula de 20/08. As três dimensões do escopo --- produto, projeto e qualidade --- tratadas separadamente, do catálogo de alertas à Definição de Pronto.
+
+\input{../escopo/escopo}
+
+\chapter{Cronograma}\label{cap:cronograma}
+\noindent Aula de 27/08, revisado para o Trabalho Prático 01. Da EAP às atividades, dependências e estimativas, até o caminho crítico com recursos, a linha de base e o buffer.
+
+\input{../cronograma/cronograma}
+
+\chapter{Finanças}\label{cap:financas}
+\noindent Aula de 03/09, revisado para o Trabalho Prático 01. Do manual de regras do dinheiro ao valor agregado e ao business case. A planilha \texttt{financas/trackfleet\_financas.xlsx} reproduz todos os cálculos.
+
+\input{../financas/financas}
+
+\chapter{Partes Interessadas}\label{cap:partes}
+\noindent Aula de 10/09. Quem são as partes interessadas, como cada uma é engajada e como a informação flui entre elas.
+\subdocumento{../partes_interessadas/registro_das_partes_interessadas}
+\subdocumento{../partes_interessadas/plano_de_engajamento}
+\subdocumento{../partes_interessadas/plano_de_comunicacoes}
+
+\chapter{Recursos}\label{cap:recursos}
+\noindent Aula de 17/09. A equipe e os recursos físicos e virtuais: acordos da dupla, responsabilidades, estrutura dos recursos e carga semanal.
+\subdocumento{../recursos/termo_da_equipe}
+\subdocumento{../recursos/matriz_raci}
+\subdocumento{../recursos/estrutura_analitica_dos_recursos}
+\subdocumento{../recursos/estimativa_e_histograma}
+
+\chapter{Riscos}\label{cap:riscos}
+\noindent Aula de 24/09. Como os riscos são gerenciados, quais são, quanto valem e como são respondidos e monitorados.
+\subdocumento{../riscos/plano_de_gerenciamento_dos_riscos}
+\subdocumento{../riscos/registro_de_riscos}
+\subdocumento{../riscos/analise_e_respostas}
+
+%======================================================================
+% Integração
+%======================================================================
+\capitulosemnumero{Integração entre os Domínios}
+
+\noindent Governança, como mostrou a primeira aula, não é um portão: é a espinha dorsal que conecta os outros seis domínios. No TrackFleet essa conexão é feita por números e decisões que aparecem em mais de um capítulo e precisam bater entre si.
+
+\secaosemnumero{Como os Domínios se Amarram}
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.6cm} L}
+\toprule
+\textbf{Ligação} & \textbf{Como aparece no projeto} \\
+\midrule
+Governança $\to$ Cronograma e Recursos & A autoridade técnica dividida por frente na RACI de Governança é a mesma da RACI de Recursos e define os donos das atividades do Cronograma. \\
+Escopo $\to$ Cronograma & Cada pacote da EAP vira atividades (A1 a A21); a Definição de Pronto vira o status binário cobrado no check-in. \\
+Cronograma $\to$ Finanças & Os dias-pessoa das atividades, a R\$ 300 cada, formam os custos; as 11 semanas do calendário formam a curva S do valor planejado. \\
+Riscos $\to$ Finanças & O VME líquido do registro de riscos é a reserva de contingência (R\$ 3.970) dentro da linha de base. \\
+Riscos $\to$ Cronograma & O buffer de 24 dias úteis protege o prazo; o limite de 5 dias de atraso no caminho crítico aciona o patrocinador. \\
+Recursos $\to$ Cronograma & O histograma prova que o cronograma nivelado não sobrecarrega ninguém; a primeira linha de base sobrecarregava. \\
+Partes Interessadas $\to$ Riscos & O patrocinador (R06), os motoristas (R07) e o provedor da API (R01) são partes interessadas e também fontes de risco, com a mesma pessoa como dono no engajamento e no risco. \\
+Finanças $\to$ Escopo & O business case depende dos épicos E1 e E2, os mesmos que a VBS do Escopo prioriza com 70\% do valor. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\secaosemnumero{O Check-in Semanal como Ponto de Integração}
+Os sete domínios são acompanhados no mesmo check-in de 10 minutos, na mesma ordem:
+\begin{enumerate}[itemsep=2pt]
+  \item \textbf{Escopo e Cronograma:} status binário das atividades em andamento, tendência da folga e consumo do buffer.
+  \item \textbf{Finanças:} CPI e SPI frente às tolerâncias.
+  \item \textbf{Riscos:} exposição frente à meta, gatilhos disparados e riscos novos.
+  \item \textbf{Recursos:} horas planejadas e realizadas de cada GP.
+  \item \textbf{Partes Interessadas:} nível de engajamento nas partes com lacuna.
+  \item \textbf{Governança:} decisões tomadas, registradas no log, e o que precisa subir ao patrocinador.
+\end{enumerate}
+
+\secaosemnumero{Uso de Inteligência Artificial}
+Como pedem as aulas de Partes Interessadas e de Riscos, a dupla documentou o uso de IA nas seções correspondentes (Capítulos~\ref{cap:partes} e~\ref{cap:riscos}). Em resumo: um assistente de IA apoiou a revisão de consistência entre os documentos, a conferência dos cálculos e a redação de rascunhos; as decisões do projeto e a validação de cada número ficaram com os GPs, e nenhum dado pessoal real foi enviado à ferramenta.
+
+\secaosemnumero{Próximos Passos}
+O projeto segue em execução com o check-in semanal. As próximas aulas da disciplina tratam de métodos ágeis (Scrum, Kanban, XP), que se aplicam diretamente ao backlog do produto do Capítulo~\ref{cap:escopo}: os épicos e histórias já definidos são a entrada natural para organizar o trabalho em sprints e em um quadro Kanban.
+
+\end{document}

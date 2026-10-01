@@ -20,55 +20,62 @@
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
 
 \begin{document}
 
-\begin{center}
-{\Large\bfseries DOCUMENTO DE RECURSOS DO PROJETO}\\[2pt]
-{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Recursos\\[2pt]
-Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 03/09
-\end{center}
+\cabecalho{RECURSOS}{Recursos}{17/09}
 
-\vspace{2mm}
-\hrule
-\vspace{4mm}
+\parte{Matriz RACI}
+\noindent A RACI detalhada por atividade, que explicita o papel de cada pessoa em cada parte do trabalho e evita difusão de responsabilidade.
 
-\noindent\textbf{\large Matriz RACI}
-
-\vspace{1mm}
-\noindent Define responsabilidades de forma explícita para evitar difusão de papéis no projeto. 
-
-Legenda: \textbf{R} (Responsável - executa), \textbf{A} (Aprovador - responde pelo resultado), \textbf{C} (Consultado - dá opinião), \textbf{I} (Informado - recebe status). Regra de Ouro: Apenas um "A" por linha.
+\noindent R = responsável, executa $\cdot$ A = aprovador, responde pelo resultado (só um por linha) $\cdot$ C = consultado $\cdot$ I = informado $\cdot$ A/R = responde e também executa.
 
 \section{Atribuições por Atividade}
 
-\begin{table}[h]
-\centering
+\begin{center}
 \small
-\begin{tabularx}{\textwidth}{@{} L C C C @{}}
+\begin{tabularx}{\textwidth}{L l c c c}
 \toprule
-\textbf{Atividade} & \textbf{Patrocinador} & \textbf{GP/Dev (Enzo)} & \textbf{GP/Dev (Kerlon)} \\
+\textbf{Atividade} & \textbf{Cronograma} & \textbf{Patrocinador} & \textbf{Enzo} & \textbf{Kerlon} \\
 \midrule
-Aprovação do Escopo do Projeto & A & C & C \\
-\addlinespace
-Levantamento e Validação de Requisitos & I & R & A \\
-\addlinespace
-Configuração da Infraestrutura (Nuvem/APIs) & I & A & R \\
-\addlinespace
-Desenvolvimento do Frontend (Dashboard) & I & R & C \\
-\addlinespace
-Desenvolvimento do Backend (Integrações) & I & C & R \\
-\addlinespace
-Testes e Qualidade (QA) & I & R & A \\
-\addlinespace
-Implantação e Liberação (Deploy) & I & A & R \\
+Aprovar escopo, linhas de base e mudanças & --- & A & R & R \\
+Levantar e especificar requisitos & A1, A3 & C & A/R & R \\
+Projetar a arquitetura & A4 & I & A/R & C \\
+Modelar o banco, API de cadastros e motor de alertas & A5, A6, A8 & I & A/R & C \\
+Mapear a API do provedor e implementar a ingestão & A2, A7 & I & C & A/R \\
+Autenticação e conformidade com a LGPD & A9, A10 & I & C & A/R \\
+Mapa, painel e telas de cadastro & A11 a A13 & I & C & A/R \\
+Relatórios exportáveis & A14 & I & R & A \\
+Infraestrutura e implantação & A21 & I & A/R & C \\
+Testes automatizados e com dados reais & A15, A17 & I & C & A/R \\
+Integração em homologação & A16 & I & A/R & C \\
+Piloto com a transportadora (homologação) & A18 & A & R & R \\
+Treinamento do gestor e documentação final & A19, A20 & I & A/R & R \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\end{center}
 
-\section{Justificativa de Atribuições}
-
-Sendo o modelo de governança uma co-gestão, os GPs precisaram dividir o papel de aprovação técnica (\textbf{A}) entre si de forma cruzada. Enquanto Enzo lidera a aprovação dos Testes e da Configuração de Infraestrutura, Kerlon atua como Aprovador no Levantamento de Requisitos e na Implantação. O Patrocinador mantém-se como o único Aprovador da mudança fundamental (Escopo) e é Informado das atividades técnicas da equipe.
+\section{Como Ler a Matriz}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Um único A por linha:} a autoridade técnica é dividida por frente, igual à RACI do Documento de Governança --- Enzo responde por backend, alertas e infraestrutura; Kerlon por integração com o provedor, frontend, testes e LGPD.
+  \item \textbf{A não é R:} nos relatórios exportáveis (A14), Enzo executa porque a geração dos arquivos fica no backend, mas quem responde é Kerlon, dono do frontend. A linha mostra a diferença entre fazer e responder pelo resultado.
+  \item \textbf{Patrocinador como A:} só nas decisões que mudam o projeto e na homologação do piloto; nas demais ele é informado pelo relatório quinzenal.
+  \item \textbf{Coerência com o Cronograma:} o A/R de cada linha é o dono das atividades correspondentes no Documento de Cronograma.
+\end{itemize}
 
 \end{document}

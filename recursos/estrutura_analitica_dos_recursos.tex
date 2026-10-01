@@ -9,7 +9,6 @@
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{hyperref}
-\usepackage{amssymb}
 \hypersetup{colorlinks=false, pdfborder={0 0 0}}
 \usepackage{fancyhdr}
 
@@ -20,52 +19,63 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
 
 \begin{document}
 
-\begin{center}
-{\Large\bfseries DOCUMENTO DE RECURSOS DO PROJETO}\\[2pt]
-{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Recursos\\[2pt]
-Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 03/09
-\end{center}
+\cabecalho{RECURSOS}{Recursos}{17/09}
 
-\vspace{2mm}
-\hrule
-\vspace{4mm}
-
-\noindent\textbf{\large Estrutura Analítica dos Recursos (EAR)}
-
-\vspace{1mm}
-\noindent Organiza e classifica os recursos de forma hierárquica, facilitando a estimativa, aquisição e o monitoramento — evidenciando que recursos não são apenas pessoas, mas também serviços e ferramentas críticas.
+\parte{Estrutura Analítica dos Recursos (EAR)}
+\noindent Organiza os recursos do projeto por categoria, de forma hierárquica, para estimar, adquirir e monitorar --- deixando claro que recurso não é só gente: serviços, licenças e infraestrutura também têm custo, prazo de aquisição e limite de capacidade.
 
 \section{Composição da EAR}
 
-\begin{itemize}[itemsep=4pt, label=\textbf{--}]
-    \item \textbf{1. Recursos do Projeto}
-    \begin{itemize}[itemsep=2pt, label=$\circ$]
-        \item \textbf{1.1 Equipe (Recursos Humanos)}
-        \begin{itemize}[itemsep=1pt, label=\tiny$\blacksquare$]
-            \item \textbf{1.1.1 Gestão e Coordenação:} GPs em modelo de co-gestão (Enzo e Kerlon).
-            \item \textbf{1.1.2 Desenvolvimento e QA:} Papéis técnicos acumulados pelos próprios GPs para construção do dashboard e integrações.
-        \end{itemize}
-
-        \item \textbf{1.2 Equipamentos (Recursos Físicos Locais)}
-        \begin{itemize}[itemsep=1pt, label=\tiny$\blacksquare$]
-            \item \textbf{1.2.1 Estações de Trabalho:} Notebooks pessoais dos desenvolvedores.
-            \item \textbf{1.2.2 Dispositivos de Rastreamento:} Aparelhos GPS operacionais cedidos/utilizados pelas transportadoras parceiras (premissa de custo zero para o projeto).
-        \end{itemize}
-
-        \item \textbf{1.3 Software e Serviços (Recursos Físicos / Virtuais)}
-        \begin{itemize}[itemsep=1pt, label=\tiny$\blacksquare$]
-            \item \textbf{1.3.1 Integração de Mapas:} Consumo de APIs de mapeamento (ex: Google Maps API / Mapbox). Requer monitoramento contínuo para evitar custos excedentes.
-            \item \textbf{1.3.2 Infraestrutura e Nuvem:} Servidores para hospedagem da aplicação, banco de dados gerenciado em ambiente cloud (AWS / GCP).
-            \item \textbf{1.3.3 Licenças de Ferramentas:} Repositórios de código (GitHub), ferramentas de IDE e comunicação.
-        \end{itemize}
+\begin{itemize}[itemsep=4pt]
+  \item[\textbf{1}] Recursos do Projeto
+  \begin{itemize}[itemsep=3pt]
+    \item[\textbf{1.1}] Equipe (recursos humanos)
+    \begin{itemize}[itemsep=1pt]
+      \item[\textbf{1.1.1}] Gestão em co-gestão: os dois GPs.
+      \item[\textbf{1.1.2}] Backend, motor de alertas, relatórios e infraestrutura: Enzo Allebrand.
+      \item[\textbf{1.1.3}] Integração com o provedor, frontend, testes e LGPD: Kerlon Ribeiro.
+      \item[\textbf{1.1.4}] Apoio do cliente: tempo do gestor de frota da transportadora para entrevistas, validações, treinamento e piloto.
     \end{itemize}
+    \item[\textbf{1.2}] Equipamentos (recursos físicos)
+    \begin{itemize}[itemsep=1pt]
+      \item[\textbf{1.2.1}] Estações de trabalho: notebooks pessoais dos dois GPs.
+      \item[\textbf{1.2.2}] Rastreadores GPS já instalados nos veículos da transportadora piloto; não são comprados nem instalados pelo projeto (restrição de orçamento zero para hardware).
+    \end{itemize}
+    \item[\textbf{1.3}] Software e serviços (recursos virtuais)
+    \begin{itemize}[itemsep=1pt]
+      \item[\textbf{1.3.1}] API do provedor de rastreamento: credenciais de teste e de produção, limite de requisições e intervalo de envio --- o recurso mais crítico do projeto.
+      \item[\textbf{1.3.2}] Hospedagem: um VPS de baixo custo com Docker, PostgreSQL em contêiner e Nginx com certificado TLS gratuito.
+      \item[\textbf{1.3.3}] Mapas: Leaflet com tiles do OpenStreetMap, sem custo de licença, sujeitos à política de uso justo.
+      \item[\textbf{1.3.4}] E-mail transacional para as notificações de alerta, em plano gratuito.
+      \item[\textbf{1.3.5}] Domínio .com.br.
+      \item[\textbf{1.3.6}] Ferramentas de trabalho: GitHub, VS Code e Discord, todos gratuitos.
+    \end{itemize}
+  \end{itemize}
 \end{itemize}
 
-\section{Estratégia de Controle (Monitoramento)}
-Um controle de consumo (histograma adaptado) será aplicado principalmente ao ramo \textbf{1.3 (Software e Serviços)}, visando garantir que o limite do "orçamento zero / free-tier" não seja ultrapassado. As cotas das APIs de rastreamento atuarão como gargalos do projeto e orientarão decisões arquiteturais.
+\section{Ligação com a EAP e com Finanças}
+Cada pacote da EAP consome recursos de um ou mais ramos da EAR: o desenvolvimento (1.3 da EAP) usa os ramos 1.1.2, 1.1.3, 1.2.1 e 1.3.1; a implantação (1.3.5 da EAP) usa o ramo 1.3.2; o piloto (1.4.2 da EAP) usa 1.1.4, 1.2.2 e 1.3.1. Os ramos 1.3.1, 1.3.2, 1.3.4 e 1.3.5 formam o OpEx de R\$ 700 do Documento de Finanças, custeado pela transportadora parceira.
+
+\section{Estratégia de Controle}
+O controle mais rigoroso vai para o ramo 1.3, porque é onde os limites são externos: o limite de requisições da API do provedor, a cota do plano gratuito de e-mail e a política de uso justo dos tiles do OpenStreetMap. Essas cotas são conferidas uma vez por mês e antes do piloto, e o custo mensal do ramo é comparado ao OpEx previsto. As cotas da API também orientam decisões de arquitetura --- por exemplo, a frequência das consultas do job de ingestão.
 
 \end{document}

@@ -1,0 +1,112 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{xltabular}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Registro de Riscos}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
+
+\begin{document}
+
+\cabecalho{RISCOS}{Riscos}{24/09}
+
+\parte{Registro de Riscos}
+\noindent A lista viva dos riscos do TrackFleet, escritos na forma causa, evento e efeito, com pontuação, resposta e um dono por risco. As escalas de probabilidade (P) e impacto (I) estão no Plano de Gerenciamento dos Riscos.
+
+\section{Ameaças}
+
+{\small
+\begin{xltabular}{\textwidth}{l L c c c c >{\raggedright\arraybackslash}p{3.4cm} l}
+\toprule
+\textbf{ID} & \textbf{Risco} & \textbf{Cat.} & \textbf{P} & \textbf{I} & \textbf{P$\times$I} & \textbf{Resposta} & \textbf{Dono} \\
+\midrule
+\endhead
+R01 & Devido à ingestão depender da API de um provedor externo (acesso, documentação e limite de requisições fora do controle da dupla), pode ocorrer atraso na liberação do acesso ou limite incompatível com a atualização desejada, o que levaria a atrasar A7, que está no caminho crítico, e o motor de alertas. & Téc. & 4 & 4 & 16 & Mitigar: mapear a API na semana 1 e desenvolver contra um simulador de posições & Kerlon \\
+\addlinespace
+R05 & Devido ao piloto depender da agenda da transportadora (gestor e veículos), pode ocorrer atraso no início ou uso insuficiente da plataforma, o que levaria a indicadores sem validação e ao consumo do buffer. & Com. & 3 & 4 & 12 & Mitigar: agendar o piloto com o patrocinador até 09/10 & Kerlon \\
+\addlinespace
+R03 & Devido à plataforma tratar localização e dados de motoristas, pode ocorrer coleta ou retenção além do necessário ou falta de consentimento, o que levaria à suspensão do piloto e a retrabalho de adequação à LGPD. & Ext. & 2 & 5 & 10 & Prevenir: minimização, retenção de 90 dias, termo de ciência e checklist LGPD na DoD & Kerlon \\
+\addlinespace
+R02 & Devido aos quatro motores de alerta estarem concentrados em A8 (maior desvio das estimativas de três pontos), pode ocorrer estouro além do cenário pessimista, o que levaria a atraso do caminho crítico. & Téc. & 3 & 3 & 9 & Mitigar: motores em ordem de valor, status binário por motor e testes desde o dia 6 de A8 & Enzo \\
+\addlinespace
+R04 & Devido aos dois GPs estarem 100\% alocados de S3 a S7 e terem outras disciplinas no semestre, pode ocorrer acúmulo de provas e trabalhos no mesmo período, o que levaria a atraso de atividades críticas. & Ger. & 3 & 3 & 9 & Mitigar: informar provas no check-in assim que marcadas e reordenar atividades com folga & Enzo \\
+\addlinespace
+R08 & Devido ao intervalo de envio do rastreador variar conforme o provedor e o sinal, pode ocorrer disparo falso do alerta de perda de sinal, o que levaria à perda de confiança do gestor nos alertas. & Téc. & 3 & 2 & 6 & Mitigar: limite configurável de pelo menos três vezes o intervalo do provedor & Kerlon \\
+\addlinespace
+R06 & Devido ao patrocinador ser a diretoria, com agenda cheia, pode ocorrer demora na aprovação de marcos, o que levaria a atrasar o início do piloto além dos 2 dias de lag previstos. & Ger. & 2 & 2 & 4 & Mitigar: aprovação por e-mail com prazo de 2 dias úteis e relatório de uma página & Enzo \\
+\addlinespace
+R07 & Devido ao receio dos motoristas de uso punitivo do rastreamento, pode ocorrer recusa em assinar o termo ou desligamento do rastreador, o que levaria a dados incompletos no piloto. & Com. & 2 & 2 & 4 & Mitigar: comunicação transparente pela transportadora (Plano de Engajamento) & Kerlon \\
+\bottomrule
+\end{xltabular}
+}
+
+\section{Oportunidades}
+Seguindo a dica da aula de levantar ao menos uma oportunidade para cada cinco ameaças:
+
+{\small
+\begin{xltabular}{\textwidth}{l L c c c c >{\raggedright\arraybackslash}p{3.4cm} l}
+\toprule
+\textbf{ID} & \textbf{Oportunidade} & \textbf{Cat.} & \textbf{P} & \textbf{I} & \textbf{P$\times$I} & \textbf{Resposta} & \textbf{Dono} \\
+\midrule
+\endhead
+O03 & Devido a outras transportadoras pequenas da região terem o mesmo problema, pode ocorrer interesse em usar a plataforma depois do piloto, o que levaria a um valor maior que o escopo do projeto. & Com. & 2 & 5 & 10 & Escalar: levar ao patrocinador como possível produto, fora deste projeto & Enzo \\
+\addlinespace
+O01 & Devido a existirem bibliotecas maduras de exportação em Python (para PDF e planilha), pode ocorrer redução do esforço dos relatórios (A14), o que levaria a economizar cerca de 2 dias. & Téc. & 4 & 2 & 8 & Explorar: prova de conceito de meio dia antes de A14 & Enzo \\
+\addlinespace
+O02 & Devido a alguns provedores oferecerem webhook, pode ocorrer substituição das consultas periódicas por envio automático, o que levaria a posições mais atuais e cerca de 1 dia a menos em A7. & Téc. & 2 & 1 & 2 & Melhorar: perguntar ao provedor sobre webhook já no mapeamento (A2) & Kerlon \\
+\bottomrule
+\end{xltabular}
+}
+
+\section{Risco Geral do Projeto}
+Somando os riscos individuais às outras fontes de incerteza, a exposição geral do TrackFleet é moderada: a tecnologia é conhecida pela dupla, mas a equipe é de só duas pessoas, sem redundância, o prazo é fixo pelo semestre e há uma dependência externa única (o provedor da API). Essa leitura é a que vai para o patrocinador; os riscos individuais são tratados entre os GPs.
+
+\section{Posição na Matriz de Probabilidade e Impacto}
+\begin{center}
+\small
+\begin{tabular}{c|ccccc}
+\toprule
+\textbf{P $\backslash$ I} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\
+\midrule
+\textbf{5} & & & & & \\
+\textbf{4} & & & & R01 & \\
+\textbf{3} & & R08 & R02, R04 & R05 & \\
+\textbf{2} & & R06, R07 & & & R03 \\
+\textbf{1} & & & & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent R01 é o único risco da faixa alta (15 a 25) e, pelo limite do Plano de Gerenciamento dos Riscos, já foi levado ao patrocinador. R05 e R03 estão na faixa média-alta e têm resposta detalhada no documento de Análise e Respostas.
+
+\end{document}

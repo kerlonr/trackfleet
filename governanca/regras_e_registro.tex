@@ -19,35 +19,42 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
 
 \begin{document}
 
-\begin{center}
-{\Large\bfseries DOCUMENTO DE GOVERNANÇA DO PROJETO}\\[2pt]
-{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Governança\\[2pt]
-Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 13/08
-\end{center}
+\cabecalho{GOVERNANÇA}{Governança}{13/08}
 
-\vspace{2mm}
-\hrule
-\vspace{4mm}
-
-\noindent\textbf{\large Regras do Jogo e Registro de Decisões}
-
-\vspace{1mm}
+\parte{Regras do Jogo e Registro de Decisões}
 \noindent Os acordos de trabalho que sustentam a governança no dia a dia, e o histórico de decisões já tomadas.
 
 \section{Regras e Acordos de Trabalho}
 \begin{itemize}[itemsep=3pt]
   \item Toda mudança grande de escopo, prazo ou objetivo vai ao patrocinador antes de ser aceita.
   \item Toda decisão importante é registrada no log de decisões, no momento em que é tomada.
-  \item Definição de Pronto: uma funcionalidade só é considerada pronta quando testada e validada pelos dois GPs.
+  \item Definição de Pronto: uma funcionalidade só é considerada pronta quando cumpre a DoD do Documento de Escopo --- implementada, revisada pelo outro GP, integrada, testada com dados do rastreador e sem exposição indevida de dados pessoais.
   \item Sem consenso entre os dois GPs, a decisão sobe direto ao patrocinador, que desempata.
   \item As reuniões de check-in não são puladas; se um integrante faltar, o outro registra os pontos e assume as decisões operacionais do dia.
 \end{itemize}
 
 \section{Registro de Decisões}
+O registro é vivo: começou na aula de Governança e recebe as decisões tomadas em cada domínio seguinte.
+
 \begin{center}
 \begin{tabularx}{\textwidth}{l L l}
 \toprule
@@ -56,6 +63,15 @@ Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscrip
 13/08 & Escolhido o modelo de governança híbrido (leve) & GPs \\
 13/08 & Definido o escopo inicial: frotas de pequenas transportadoras & GP (Kerlon) \\
 13/08 & Definidas as três métricas de resultado e o sinal de alerta & GPs \\
+20/08 & Escopo reunido em um documento com três dimensões; produto estruturado em backlog e trabalho do projeto em EAP & GPs \\
+20/08 & Arquitetura de referência: Django, React e PostgreSQL em contêineres, com um único provedor de rastreamento piloto & GP (Enzo) \\
+27/08 & Linha de base do cronograma submetida ao patrocinador, com buffer único no fim do projeto & GPs \\
+03/09 & Custo-hora de referência de R\$ 50,00 e reservas de contingência e de gerenciamento definidas & GPs \\
+10/09 & Registro das partes interessadas; fornecedor da API tratado como parte ativa & GP (Kerlon) \\
+17/09 & Termo da equipe e autoridade técnica dividida por frente na RACI & GPs \\
+24/09 & Reserva de contingência passa a ser dimensionada pelo VME do registro de riscos & GPs \\
+01/10 & Cronograma corrigido com nivelamento de recursos e feriados (de 49 para 51 dias úteis) e finanças recalculadas a partir dele; correção aprovada pelo patrocinador & GPs \\
+01/10 & Documentos dos sete domínios consolidados no Trabalho Prático 01 & GPs \\
 \bottomrule
 \end{tabularx}
 \end{center}

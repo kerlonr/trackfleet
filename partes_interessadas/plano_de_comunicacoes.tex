@@ -19,50 +19,72 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
 
 \begin{document}
 
+\cabecalho{PARTES INTERESSADAS}{Partes Interessadas}{10/09}
+
+\parte{Plano de Comunicações}
+\noindent O guia operacional do fluxo de informação do projeto: o quê, para quem, em que formato e canal, com que frequência e quem é o responsável --- personalizado para cada parte, porque não se padroniza conexão humana.
+
+\section{Matriz de Comunicações}
+
 \begin{center}
-{\Large\bfseries DOCUMENTO DE PARTES INTERESSADAS DO PROJETO}\\[2pt]
-{\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
-Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: Partes Interessadas\\[2pt]
-Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: 27/08
-\end{center}
-
-\vspace{2mm}
-\hrule
-\vspace{4mm}
-
-\noindent\textbf{\large Plano de Comunicações}
-
-\vspace{1mm}
-\noindent Documento operacional que define o fluxo de informações do projeto: quem precisa de qual informação, em que formato, por qual canal e com qual frequência, garantindo que as comunicações sejam personalizadas para cada grupo.
-
-\section{Matriz de Comunicações do Projeto}
-
-\begin{table}[h]
-\centering
 \small
-\begin{tabularx}{\textwidth}{@{} L l l l l @{}}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}p{2.2cm} L >{\raggedright\arraybackslash}p{2.4cm} l}
 \toprule
-\textbf{O quê (Informação)} & \textbf{Para quem} & \textbf{Formato e Canal} & \textbf{Frequência} & \textbf{Responsável} \\
+\textbf{Informação} & \textbf{Para quem} & \textbf{Formato e canal} & \textbf{Frequência} & \textbf{Responsável} \\
 \midrule
-\textbf{Relatório Executivo de Status} (Avanço, problemas, custos) & Diretoria (Patrocinador) & Documento PDF (1 pág.) enviado via E-mail & Quinzenal & GPs \\
+Relatório executivo de status: avanço, CPI/SPI, três maiores riscos e decisões pedidas & Patrocinador & PDF de uma página por e-mail & Quinzenal, e extra quando um limite de risco é ultrapassado & Enzo \\
 \addlinespace
-\textbf{Demonstração e Validação} (Entregas e protótipos) & Gestores de Frota & Reunião online (Teams/Meet) com atas pós-reunião & Mensal (ao fim da iteração) & GPs \\
+Pedido de aprovação de marco ou de mudança & Patrocinador & E-mail com análise de impacto; resposta em até 2 dias úteis & Por evento & Enzo \\
 \addlinespace
-\textbf{Avisos de Privacidade e Uso} & Motoristas & Informativo impresso e termos de uso no app & Única / Em atualizações & Transportadora \\
+Demonstração e validação das entregas & Gestor de frota & Reunião online com ata enviada no mesmo dia & Quinzenal no desenvolvimento; semanal no piloto & Kerlon \\
 \addlinespace
-\textbf{Sincronização Técnica} (Bloqueios, decisões de código) & Equipe (Enzo e Kerlon) & Reunião rápida via Discord e registro no GitHub & Diária & Ambos os GPs \\
+Aviso de privacidade e termo de ciência & Motoristas & Termo impresso assinado e aviso fixado no veículo, entregues pela transportadora & Uma vez, e a cada mudança no tratamento de dados & Kerlon \\
+\addlinespace
+Status técnico da integração & Provedor da API & Chamados no suporte técnico do provedor, com histórico registrado & Semanal durante A7 e o piloto & Kerlon \\
+\addlinespace
+Sincronização técnica (bloqueios) & GPs & Daily de 15 minutos no Discord; registro no GitHub & Diária & Enzo \\
+\addlinespace
+Check-in de governança: indicadores, riscos e decisões & GPs & Reunião de 10 minutos com atualização do registro de decisões & Semanal & Kerlon \\
+\addlinespace
+Documentos de cada domínio do projeto & Professor da disciplina & PDF no repositório do projeto e apresentação em aula & A cada aula e nos trabalhos práticos & Kerlon \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\end{center}
 
-\section{Monitoramento das Comunicações}
+\noindent Não há comunicação direta prevista com a ANPD nem com os fornecedores de infraestrutura: a conformidade com a LGPD fica documentada no checklist da Definição de Pronto, disponível se for solicitada, e as cotas dos fornecedores são conferidas mensalmente pelos GPs.
 
+\section{Classificação da Informação}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Sensível:} posições, trajetos e dados dos motoristas ficam só dentro da plataforma, com acesso autenticado; nunca vão para relatórios de status, atas ou e-mails.
+  \item \textbf{Interna:} indicadores do projeto, riscos e decisões circulam entre GPs e patrocinador.
+  \item \textbf{Externa:} o que vai para o provedor da API se limita a dados técnicos da integração; o que vai para os motoristas é o aviso de privacidade.
+\end{itemize}
+
+\section{Monitorar as Comunicações}
 \begin{itemize}[itemsep=4pt]
-    \item \textbf{Coleta de Feedback:} A cada final de mês, será solicitado feedback informal ao Patrocinador para avaliar se o relatório executivo está no nível de detalhe correto (sem excesso de termos técnicos).
-    \item \textbf{Ajuste de Rota:} Caso a equipe identifique falhas de alinhamento técnico entre os GPs, a frequência de sincronização ou a ferramenta de registro de código (GitHub) será revisada e adaptada conforme a necessidade.
+  \item \textbf{Feedback do patrocinador:} a cada relatório executivo, uma pergunta só --- ``este relatório ajudou você a decidir?''. Duas respostas negativas seguidas mudam o formato (mais curto, menos termos técnicos).
+  \item \textbf{Feedback do gestor de frota:} a ata de cada demonstração registra o que foi entendido e o que ficou confuso; itens confusos voltam na demonstração seguinte.
+  \item \textbf{Ajuste de rota:} se a sincronização diária deixar de pegar bloqueios a tempo (por exemplo, um bloqueio descoberto só no check-in semanal), a frequência ou a ferramenta é revista no check-in seguinte.
+  \item \textbf{Revisão do plano:} o plano é revisto a cada marco do Cronograma, junto com o Registro das Partes Interessadas.
 \end{itemize}
 
 \end{document}

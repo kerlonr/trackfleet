@@ -1,0 +1,132 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{mathptmx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small TrackFleet --- Plano de Gerenciamento dos Riscos}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlist{topsep=3pt}
+
+% Cabeçalho padrão do projeto. No documento consolidado (trabalho_pratico_01/)
+% estes três comandos são redefinidos e este mesmo arquivo vira parte do capítulo do domínio.
+\newcommand{\cabecalho}[3]{%
+  \begin{center}
+  {\Large\bfseries DOCUMENTO DE #1 DO PROJETO}\\[2pt]
+  {\large\bfseries TrackFleet --- Gestão de Rastreador de Automóveis}\\[4pt]
+  Disciplina de Gerenciamento de Projetos $\cdot$ Framework PMBOK\textregistered\ 8\textsuperscript{a} Edição $\cdot$ Domínio: #2\\[2pt]
+  Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) $\cdot$ 4\textsuperscript{o} semestre $\cdot$ Data: #3
+  \end{center}
+  \vspace{2mm}\hrule\vspace{4mm}}
+\newcommand{\parte}[1]{\noindent\textbf{\large #1}\par\vspace{1mm}}
+\newcommand{\separador}{\par\vspace{2mm}\hrule\vspace{4mm}}
+
+\begin{document}
+
+\cabecalho{RISCOS}{Riscos}{24/09}
+
+\parte{Plano de Gerenciamento dos Riscos}
+\noindent Define como os riscos do TrackFleet são identificados, analisados, respondidos e monitorados --- com as escalas acertadas antes da análise, para que os dois GPs usem o mesmo critério.
+
+\section{Conceitos Aplicados ao TrackFleet}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Risco:} evento ou condição incerta que, se ocorrer, afeta prazo, custo, qualidade ou valor do projeto --- para pior (ameaça) ou para melhor (oportunidade). Todo risco é escrito na forma ``Devido a causa, pode ocorrer evento, o que levaria a efeito''.
+  \item \textbf{Risco $\times$ problema:} o risco está no futuro e vai para o registro de riscos; o problema já aconteceu e vai para o registro de problemas, mantido junto ao registro de decisões do check-in. Um problema que era um risco conhecido indica que a resposta falhou; um problema que ninguém previu indica falha na identificação.
+  \item \textbf{Desconhecidos conhecidos:} os riscos do registro, cobertos pela reserva de contingência (R\$ 3.970, dentro da linha de base de custos).
+  \item \textbf{Desconhecidos desconhecidos:} o que ninguém conseguiu prever, coberto pela reserva de gerenciamento (R\$ 1.639, fora da linha de base, liberada só pelo patrocinador).
+\end{itemize}
+
+\section{Metodologia e Adaptação}
+O ciclo segue os seis processos do domínio --- planejar, identificar, analisar, planejar respostas, implementar respostas e monitorar --- em ciclo contínuo: risco novo volta para identificação e análise. Por ser um projeto pequeno, de uma dupla, o plano é enxuto (tailoring indicado na aula):
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Análise qualitativa:} matriz de probabilidade e impacto para todos os riscos.
+  \item \textbf{Análise quantitativa:} apenas o Valor Monetário Esperado (VME), usado para dimensionar a reserva de contingência. Simulação de Monte Carlo e árvore de decisão não são usadas: o projeto não tem dados históricos nem contratos de preço fixo que justifiquem o custo dessas análises.
+  \item \textbf{Abordagem híbrida:} o software é feito em ciclos semanais, e os itens de maior risco vêm primeiro --- o mapeamento da API (A2) ocorre na primeira semana e os testes do motor de alertas (A15) começam antes de o motor terminar.
+\end{itemize}
+
+\section{Papéis e Responsabilidades}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Dono do risco:} cada risco tem um dono com nome de pessoa (nunca ``a equipe''), com autoridade para acionar a resposta.
+  \item \textbf{Manutenção do registro:} Kerlon, dono do pacote de planejamento e acompanhamento (1.1.2 da EAP).
+  \item \textbf{Patrocinador:} decide sobre riscos escalados, aprova o uso da reserva de gerenciamento e recebe os três maiores riscos no relatório quinzenal.
+\end{itemize}
+
+\section{Calendário de Revisão}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Identificação inicial:} 24/09, na aula do domínio, com brainstorming guiado pelas categorias da Seção~\ref{ris:categorias}, revisão das premissas e restrições do Termo de Abertura e das incertezas medidas nas estimativas de três pontos.
+  \item \textbf{Revisão contínua:} todo check-in semanal reavalia probabilidade, impacto e o andamento das respostas, e pergunta se surgiu risco novo.
+  \item \textbf{Revisão completa:} em cada marco do Cronograma e antes do início do piloto (23/10).
+\end{itemize}
+
+\section{Categorias de Risco (EAR de Riscos)}\label{ris:categorias}
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{L L L L}
+\toprule
+\textbf{Técnico} & \textbf{Gerencial} & \textbf{Comercial} & \textbf{Externo} \\
+\midrule
+Integração com a API do provedor & Estimativas otimistas & Adesão do gestor e do patrocinador & LGPD e ANPD \\
+Complexidade do motor de alertas & Sobrecarga de uma equipe de duas pessoas & Disponibilidade da transportadora para o piloto & Fornecedores de infraestrutura e suas cotas \\
+Qualidade dos dados do rastreador & Comunicação com o patrocinador & Aceitação pelos motoristas & Calendário acadêmico e feriados \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Escalas de Probabilidade e Impacto}\label{ris:escalas}
+O impacto de um risco é o pior entre os seus efeitos em prazo, custo e qualidade.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{c l L L L}
+\toprule
+\textbf{Nível} & \textbf{Probabilidade} & \textbf{Impacto no prazo} & \textbf{Impacto no custo} & \textbf{Impacto na qualidade} \\
+\midrule
+1 & Muito baixa (10\%) & Até 1 dia útil & Até R\$ 300 & Ajuste cosmético \\
+2 & Baixa (30\%) & 2 a 3 dias úteis & Até R\$ 900 & Função secundária degradada \\
+3 & Média (50\%) & 4 a 5 dias úteis & Até R\$ 1.500 & Requisito não funcional fora da meta \\
+4 & Alta (70\%) & 6 a 10 dias úteis & Até R\$ 3.000 & Entregável de E1 ou E2 incompleto \\
+5 & Muito alta (90\%) & Mais de 10 dias úteis & Acima de R\$ 3.000 & Violação da LGPD ou piloto suspenso \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Matriz de Probabilidade e Impacto}
+A pontuação é P $\times$ I, de 1 a 25:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Alta (15 a 25):} resposta imediata, acompanhamento semanal e escalonamento ao patrocinador.
+  \item \textbf{Média-alta (10 a 14):} resposta planejada, com dono ativo e gatilho definido.
+  \item \textbf{Média (5 a 9):} monitorar e responder se a resposta for barata.
+  \item \textbf{Baixa (1 a 4):} lista de observação, revista nos marcos.
+\end{itemize}
+\noindent Para oportunidades vale a matriz espelhada: quanto maior a pontuação, maior a prioridade de explorar ou melhorar.
+
+\section{Apetite, Tolerância e Limite}
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{Apetite:} o patrocinador aceita risco técnico moderado (um único provedor de rastreamento e uma pilha de tecnologia conhecida) em troca de custo baixo; o apetite para risco de privacidade é praticamente nulo.
+  \item \textbf{Tolerância:} no prazo, consumir até a metade do buffer do projeto (12 dos 24 dias úteis); no custo, um EAC até a linha de base mais a reserva de gerenciamento (R\$ 34.409).
+  \item \textbf{Limites (thresholds):} sobe ao patrocinador qualquer risco com P $\times$ I a partir de 15, atraso acumulado de mais de 5 dias úteis no caminho crítico, consumo de mais da metade do buffer, CPI ou SPI abaixo de 0,90 e qualquer incidente com dados pessoais.
+\end{itemize}
+
+\section{Formatos de Relatório e Rastreamento}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Registro de riscos:} tabela única com ID, descrição em metalinguagem, categoria, P, I, P $\times$ I, resposta e dono.
+  \item \textbf{Burndown de riscos:} soma das pontuações P $\times$ I a cada semana, comparada com a meta do documento de Análise e Respostas.
+  \item \textbf{Relatório ao patrocinador:} os três maiores riscos entram no relatório executivo quinzenal do Plano de Comunicações.
+\end{itemize}
+
+\end{document}

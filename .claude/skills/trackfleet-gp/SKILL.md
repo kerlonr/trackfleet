@@ -46,9 +46,30 @@ valores diferentes para o mesmo campo em documentos diferentes.
   `projeto.tex`, `qualidade.tex`), fundidos em um só a pedido, com o escopo aprofundado (catálogo
   detalhado de alertas, catálogo de relatórios e a arquitetura/infraestrutura de tecnologia do
   produto).
-- Para os próximos domínios (Cronograma, Finanças, Partes Interessadas, Recursos, Riscos), crie uma
-  pasta nova por domínio, com o mesmo padrão: um `.tex` por parte relevante do domínio, nomeado pelo
-  conteúdo (não por número de slide), em minúsculas com underscore (ex.: `metricas_e_sinal.tex`).
+- `cronograma/` (27/08) — `cronograma.tex`: atividades A1–A21 com dono único, dependências, PERT,
+  caminho crítico com recursos (nivelado), calendário com feriados e buffer até 17/12.
+- `financas/` (03/09) — `financas.tex` + `trackfleet_financas.xlsx` (a planilha recalcula tudo por
+  fórmula; custos saem dos dias-pessoa do cronograma × R$ 300; contingência = VME da aba Riscos).
+- `partes_interessadas/` (10/09) — registro, plano de engajamento, plano de comunicações.
+- `recursos/` (17/09) — termo da equipe, matriz RACI, EAR, estimativa e histograma.
+- `riscos/` (24/09) — plano de gerenciamento, registro de riscos, análise e respostas.
+- `trabalho_pratico_01/` (01/10) — `documento_consolidado.tex`, que NÃO copia conteúdo: inclui os
+  `.tex` de cada pasta via `docmute` (um capítulo por domínio). Ao mudar um domínio, edite o `.tex`
+  da pasta dele e recompile também o consolidado.
+- Domínio novo: uma pasta por domínio, um `.tex` por parte relevante, nomeado pelo conteúdo (não por
+  número de slide), em minúsculas com underscore (ex.: `metricas_e_sinal.tex`). Para entrar no
+  consolidado, acrescente um `\chapter` + `\subdocumento{...}` (vários arquivos) ou `\input{...}` (um).
+
+Datas das aulas (mapa da aula 1): Governança 13/08, Escopo 20/08, Cronograma 27/08, Finanças 03/09,
+Partes Interessadas 10/09, Recursos 17/09, Riscos 24/09, Trabalho Prático 01 01/10. O campo "Data" do
+cabeçalho é sempre a data da aula do domínio.
+
+**Números compartilhados entre domínios** (se mudar um, propague para todos e para o consolidado):
+prazo 31/08–12/11 (51 dias úteis), buffer 24 dias úteis; BAC R$ 32.770, contingência R$ 3.970 (VME
+líquido), gerenciamento R$ 1.639, orçamento R$ 34.409; donos por frente (Enzo: backend, alertas,
+relatórios, infraestrutura; Kerlon: integração com o provedor, frontend, testes, LGPD). Referências
+internas usam `\label`/`\ref` com prefixo do domínio (`esc:`, `cro:`, `fin:`, `ris:`); entre
+documentos, cite a seção pelo nome, nunca pelo número.
 
 ## Padrão dos documentos
 
@@ -62,9 +83,13 @@ Disciplina de Gerenciamento de Projetos · Framework PMBOK® 8ª Edição · Dom
 Integrantes: Enzo Allebrand e Kerlon Ribeiro (dois GPs) · 4º semestre · Data: [data da aula]
 ```
 
+No `.tex`, esse cabeçalho é gerado pela macro `\cabecalho{DOMÍNIO}{Domínio}{data}` e o subtítulo da
+parte por `\parte{Título}` (separadores por `\separador`), definidos no preâmbulo de cada arquivo — é
+isso que permite ao consolidado redefini-los. Copie o preâmbulo de um documento existente.
+
 Cada seção do corpo do documento aplica um conceito da aula correspondente diretamente ao TrackFleet
 (não repete a teoria genérica do slide — traduz o conceito em uma decisão concreta do projeto:
-requisitos reais, exclusões reais, indicadores reais). Tabelas usam `booktabs` + `tabularx`; listas
+requisitos reais, exclusões reais, indicadores reais). Tabelas usam `booktabs` + `tabularx` (ou `xltabular` quando a tabela precisa quebrar página); listas
 aninhadas (como a EAP) usam `enumitem`. Os arquivos são LaTeX autocontidos (preâmbulo completo em cada
 `.tex`), compiláveis isoladamente com `pdflatex` ou no Overleaf.
 
